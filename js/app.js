@@ -15,6 +15,7 @@ const canvasWidth = canvas.getAttribute("width");
 export const blockWidth = canvasWidth / numberOfColumns;
 export const blockHeight = canvasHeight / numberOfRows;
 export const gridArray = []; //0 represents walls, 1 ground, 2 player and 3 enemy
+export let isGameover = false;
 
 startButton.addEventListener("click", startGame);
 
@@ -67,4 +68,9 @@ export function getRandomPosition() {
       return [randomRow, randomColumn];
     }
   }
+}
+
+export function gameover() {
+  isGameover = true;
+  alert('gameover nub');
 }

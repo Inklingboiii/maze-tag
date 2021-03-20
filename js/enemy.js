@@ -8,6 +8,8 @@ import {
   numberOfColumns,
   numberOfRows,
   getRandomPosition,
+  gameover,
+  isGameover
 } from "./app.js";
 import { up, down, left, right } from "./player.js";
 
@@ -28,25 +30,18 @@ export default function createEnemy() {
   //hunt player until player is caught
   route = findBestRoute(enemyRow, enemyColumn);
   moveEnemy(route);
-  window.addEventListener('keydown', (key) => {
-    let lastRouteItem = Object.assign({}, route[route.length - 1]);
-    let changes = [];
-    //if player moved add its movement to the route
-    if(gridArray[lastRouteItem.y][lastRouteItem.x] !== 2) {
-
-      if(key.code === up) changes = [-1, 0];
-      else if(key.code === down) changes = [1, 0];
-      else if(key.code === left) changes = [0, -1];
-      else if(key.code === right) changes = [0, 1];
-      lastRouteItem.y += changes[0];
-      lastRouteItem.x += changes[1];
-      route.push(lastRouteItem);
+  window.addEventListener("keydown", (key) => {
+    if(!isGameover) {
+      route.push(addPlayerMoveToRoute(key, route));
     }
-  })
+  });
 
   function moveEnemy(routeParam) {
     route = routeParam;
     let updateRouteInterval = setInterval(() => {
+      if(isGameover) {
+        clearInterval(updateRouteInterval);
+      }
       /*let routeLength = route.length;
       for(let i = 0; i < routeLength - 1; i++) {
         draw({
@@ -58,7 +53,7 @@ export default function createEnemy() {
         });
       }*/
       route = findBestRoute(enemyRow, enemyColumn);
-     /* console.log('after', route)
+      /* console.log('after', route)
       routeLength = route.length;
       for(let i = 0; i < routeLength - 2; i++) {
         draw({
@@ -69,39 +64,55 @@ export default function createEnemy() {
           color: 'orange'
         });
       }*/
-    }, 3000)
+    }, 3000);
     let moveInterval = setInterval(() => {
+      if(isGameover) {
+        console.log('cleared interval')
+        return clearInterval(moveInterval);
+      }
       //for better player detection
-      if(gridArray[enemyRow][enemyColumn].type === 2) {
-        alert('gameover');
-        clearInterval(moveInterval);
+      if (gridArray[enemyRow][enemyColumn].type === 2) {
+      gameover();
+      return clearInterval(moveInterval);
       }
       let routeY = route[0].y;
       let routeX = route[0].x;
       let playerY = route[route.length - 1].y;
       let playerX = route[route.length - 1].x;
       //if player position changed update route
-      if(gridArray[playerY][playerX].type !== 2) {
+      if (gridArray[playerY][playerX].type !== 2) {
         route = findBestRoute(enemyRow, enemyColumn);
       }
       //erase last position
-      draw({row: enemyRow, col: enemyColumn, width: blockWidth, height: blockHeight, color: '#0f0', type: 1});
-       //draw new position
-       draw({row: routeY, col: routeX, width: blockWidth, height: blockHeight, color: '#f00', type: 3});
+      draw({
+        row: enemyRow,
+        col: enemyColumn,
+        width: blockWidth,
+        height: blockHeight,
+        color: "#0f0",
+        type: 1,
+      });
+      //draw new position
+      draw({
+        row: routeY,
+        col: routeX,
+        width: blockWidth,
+        height: blockHeight,
+        color: "#f00",
+        type: 3,
+      });
       //update enemy position
       enemyRow = routeY;
       enemyColumn = routeX;
       //remove position from route
       route.shift();
-       //if touching player stop the hunt
-       if(!route.length) {
-        alert('gameover');
-        clearInterval(moveInterval);
+      //if touching player stop the hunt
+      if (!route.length) {
+        gameover();
       }
-    }, 300);
+    }, 200);
     return moveInterval;
   }
-  
 }
 
 function findBestRoute(enemyY, enemyX) {
@@ -141,7 +152,7 @@ function findBestRoute(enemyY, enemyX) {
   }
 
   function checkBranches(block) {
-  /*  draw({
+    /*  draw({
       row: block.y,
       col: block.x,
       height: blockHeight,
@@ -158,7 +169,7 @@ function findBestRoute(enemyY, enemyX) {
     });
     if (!queue.length) {
       //stop recursion if the queue is empty
-      console.log('empty queue');
+      console.log("empty queue");
       return;
     }
     //if the node contains the player make the route to the player
@@ -187,3 +198,18 @@ function findBestRoute(enemyY, enemyX) {
     }
   }
 }
+
+function addPlayerMoveToRoute(key, route) {
+  let lastRouteItem = Object.assign({}, route[route.length - 1]);
+    let changes = [];
+    //if player moved add its movement to the route
+    if (gridArray[lastRouteItem.y][lastRouteItem.x] !== 2) {
+      if (key.code === up) changes = [-1, 0];
+      else if (key.code === down) changes = [1, 0];
+      else if (key.code === left) changes = [0, -1];
+      else if (key.code === right) changes = [0, 1];
+      lastRouteItem.y += changes[0];
+      lastRouteItem.x += changes[1];
+      return lastRouteItem;
+    }
+  }

@@ -8,6 +8,8 @@ import {
   numberOfColumns,
   numberOfRows,
   getRandomPosition,
+  gameover,
+  isGameover
 } from "./app.js";
 
 //player input directions
@@ -40,11 +42,10 @@ export default function createPlayer() {
     type: 2,
   }); //register it as ground at first cus player duplicates
   window.addEventListener("keydown", (key) => {
-    if (key.code === up || down || left || right) {
+    if ((key.code === up || down || left || right) && !isGameover) {
       //removes bug where player can warp through enemy
-      if(gridArray[playerRow][playerColumn].type === 3) {
-        console.log('debug gameover');
-        return;
+      if(gridArray[playerRow][playerColumn].type === 3 ) {
+        return gameover();
       }
       //delete player's last position
       draw({
