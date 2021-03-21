@@ -9,7 +9,7 @@ import {
   gameover,
   isGameover,
 } from "./app.js";
-import { up, down, left, right, playerRow, playerColumn, lastPlayerRow, lastPlayerColumn } from "./player.js";
+import { playerRow, playerColumn, lastPlayerRow, lastPlayerColumn } from "./player.js";
 import findBestRoute from "./pathFinder.js";
 
 export default function createEnemy() {
@@ -40,13 +40,13 @@ export default function createEnemy() {
             x: playerColumn
           }
         )
+        //update route visualization if players position changed
+          if(playerRow !== lastPlayerRow || playerColumn !== lastPlayerColumn) {
+            draw({row: lastPlayerRow, col: lastPlayerColumn, width: blockWidth, height: blockHeight, color: 'orange', type: 1});
+          }
       } else {
         console.log('oops')
       }
-     /*let additionalPosition = addPlayerMoveToRoute(key, route);
-      if (typeof additionalPosition !== "undefined") {
-        route.push(additionalPosition);
-      }*/
     }
   });
 
@@ -56,6 +56,7 @@ export default function createEnemy() {
       if (isGameover) {
         clearInterval(updateRouteInterval);
       }
+      //erase old route visualization
       let routeLength = route.length - 1;
       for (let i = 0; i < routeLength; i++) {
         draw({
@@ -67,7 +68,9 @@ export default function createEnemy() {
           type: 1,
         });
       }
+      //update/recalculate route
       route = findBestRoute(enemyRow, enemyColumn);
+      //draw new route
       routeLength = route.length;
       for (let i = 0; i < routeLength - 1; i++) {
         draw({
@@ -92,12 +95,6 @@ export default function createEnemy() {
       }
       let routeY = route[0].y;
       let routeX = route[0].x;
-      let playerY = route[route.length - 1].y;
-      let playerX = route[route.length - 1].x;
-      //if player position changed update route
-      if (gridArray[playerY][playerX].type !== 2) {
-        route = findBestRoute(enemyRow, enemyColumn);
-      }
       //erase last position
       draw({
         row: enemyRow,
@@ -127,20 +124,5 @@ export default function createEnemy() {
       }
     }, 200);
     return moveInterval;
-  }
-}
-
-function addPlayerMoveToRoute(key, route) {
-  let lastRouteItem = Object.assign({}, route[route.length - 1]);
-  let changes = [];
-  //if player moved add its movement to the route
-  if (key.code === up) changes = [-1, 0];
-  else if (key.code === down) changes = [1, 0];
-  else if (key.code === left) changes = [0, -1];
-  else if (key.code === right) changes = [0, 1];
-  lastRouteItem.y += changes[0];
-  lastRouteItem.x += changes[1];
-  if (gridArray[lastRouteItem.y][lastRouteItem.x].type === 2) {
-    return lastRouteItem;
   }
 }

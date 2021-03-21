@@ -46,7 +46,7 @@ function createRandomMap() {
   }
 }
 
-export function draw({ row, col, width, height, color, type }) {
+export function draw({ row, col, width = blockWidth, height = blockHeight, color, type }) {
   /*render square:
     1. finding starting square point by multiplying the current column one is currently one times the width of a column(x position) and multiplying the current row with the height of a row
     2. setting the size of the square with the the width of a column and the height of a row*/
