@@ -1,6 +1,4 @@
 import {
-  canvas,
-  ctx,
   draw,
   blockWidth,
   blockHeight,
@@ -26,12 +24,12 @@ let isPressed = {
   right: false,
 };
 
-export let playerX = null;
-export let playerY = null;
+export let playerRow;
+export let playerColumn;
+export let lastPlayerRow;
+export let lastPlayerColumn;
 export default function createPlayer() {
-  let [playerRow, playerColumn] = getRandomPosition();
-  playerX = playerColumn * blockWidth;
-  playerY = playerRow * blockWidth;
+  [playerRow, playerColumn] = getRandomPosition();
   //render player in map
   draw({
     row: playerRow,
@@ -43,45 +41,54 @@ export default function createPlayer() {
   }); //register it as ground at first cus player duplicates
   window.addEventListener("keydown", (key) => {
     if ((key.code === up || down || left || right) && !isGameover) {
-      //removes bug where player can warp through enemy
-      if(gridArray[playerRow][playerColumn].type === 3 ) {
-        return gameover();
-      }
-      //delete player's last position
-      draw({
-        row: playerRow,
-        col: playerColumn,
-        width: blockWidth,
-        height: blockHeight,
-        color: "#0f0",
-        type: 1,
-      });
-      switch (key.code) {
-        //check collissions and that the buttons arent being held
-        case up:
-          configurePosition([-1, 0], "up");
-          break;
-        case down:
-          configurePosition([1, 0], "down");
-          break;
-        case left:
-          configurePosition([0, -1], "left");
-          break;
-        case right:
-          configurePosition([0, 1], "right");
-          break;
-      }
-      //redraw player after new position
-      draw({
-        row: playerRow,
-        col: playerColumn,
-        width: blockWidth,
-        height: blockHeight,
-        color: "#00f",
-        type: 2,
-      });
+      movePlayer(key);
     }
   });
+
+  function movePlayer(key) {
+    //removes bug where player can warp through enemy
+    if(gridArray[playerRow][playerColumn].type === 3 ) {
+      return gameover();
+    }
+    //store player's last position and delete it after its new position was drawn
+    lastPlayerRow = playerRow;
+    lastPlayerColumn = playerColumn;
+    switch (key.code) {
+      //check collissions and that the buttons arent being held
+      case up:
+        configurePosition([-1, 0], "up");
+        break;
+      case down:
+        configurePosition([1, 0], "down");
+        break;
+      case left:
+        configurePosition([0, -1], "left");
+        break;
+      case right:
+        configurePosition([0, 1], "right");
+        break;
+    }
+    //redraw player after new position
+    draw({
+      row: playerRow,
+      col: playerColumn,
+      width: blockWidth,
+      height: blockHeight,
+      color: "#00f",
+      type: 2
+    });
+    //only erase last position if it isnt equal to current position
+    if(playerRow !== lastPlayerRow || playerColumn !== lastPlayerColumn) {
+      draw({
+        row: lastPlayerRow,
+        col: lastPlayerColumn,
+        width: blockWidth,
+        height: blockHeight,
+        color: '#0f0',
+        type: 1
+      });
+    }
+  }
 
   window.addEventListener("keyup", (key) => {
     switch (key.code) {
