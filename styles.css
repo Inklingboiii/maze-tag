@@ -12,6 +12,12 @@ body {
     min-height: 100vh;
 }
 
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
 canvas {
     border: 1px solid black;
 }

@@ -7,11 +7,11 @@ import {
   gridArray,
   numberOfColumns,
   numberOfRows,
-  gameover,
   isGameover,
 } from "./app.js"
 
 import { playerRow, playerColumn, lastPlayerRow, lastPlayerColumn } from './player.js';
+
 export default function findBestRoute(enemyY, enemyX) {
     let searchedNodes = new Set([]);
     let startingBlock = {
@@ -70,7 +70,7 @@ export default function findBestRoute(enemyY, enemyX) {
         return;
       }
       //if the node contains the player make the route to the player
-      if (gridArray[block.y][block.x].type === 2 || block.y === playerRow && block.x === playerColumn) {
+      if (block.y === playerRow && block.x === playerColumn) {
         return createRoute(block);
       } else {
         //if node contains walkable space add its neighbors to queue

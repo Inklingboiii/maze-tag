@@ -59,14 +59,16 @@ export default function createEnemy() {
       //erase old route visualization
       let routeLength = route.length - 1;
       for (let i = 0; i < routeLength; i++) {
-        draw({
-          row: route[i].y,
-          col: route[i].x,
-          width: blockWidth,
-          height: blockHeight,
-          color: "#0f0",
-          type: 1,
-        });
+        if(route[i].y !== playerRow || route[i].x !== playerColumn) {
+          draw({
+            row: route[i].y,
+            col: route[i].x,
+            width: blockWidth,
+            height: blockHeight,
+            color: "#0f0",
+            type: 1,
+          });
+        }
       }
       //update/recalculate route
       route = findBestRoute(enemyRow, enemyColumn);
@@ -88,8 +90,8 @@ export default function createEnemy() {
         console.log("cleared interval");
         return clearInterval(moveInterval);
       }
-      //for better player detection
-      if (gridArray[enemyRow][enemyColumn].type === 2) {
+      //if touching player stop the hunt
+      if (enemyRow === playerRow && enemyColumn === playerColumn) {
         gameover();
         return clearInterval(moveInterval);
       }
@@ -118,10 +120,6 @@ export default function createEnemy() {
       enemyColumn = routeX;
       //remove position from route
       route.shift();
-      //if touching player stop the hunt
-      if (!route.length) {
-        gameover();
-      }
     }, 200);
     return moveInterval;
   }
