@@ -119,7 +119,7 @@ function drawStartingScreen() {
   ctx.textBaseline = 'middle';
   ctx.textAlign = 'center';
   ctx.fillStyle = accentColor;
-  ctx.font = '3rem Legend Boy';
+  ctx.font = '3rem "Legend Boy"';
   ctx.fillText('MAZE', Math.round((canvasWidth/3) * 2), Math.round(canvasHeight/3) / 2);
   ctx.fillText('TAG', canvasWidth/3, canvasHeight/3 * 2.5);
 }
