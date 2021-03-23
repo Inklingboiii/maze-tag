@@ -8,6 +8,12 @@ import {
   getRandomPosition,
   gameover,
   isGameover,
+  fieldColor,
+  wallColor,
+  playerColor,
+  enemyColor,
+  trailColor,
+  accentColor
 } from "./app.js";
 import { playerRow, playerColumn, lastPlayerRow, lastPlayerColumn } from "./player.js";
 import findBestRoute from "./pathFinder.js";
@@ -23,7 +29,7 @@ export default function createEnemy() {
     col: enemyColumn,
     width: blockWidth,
     height: blockHeight,
-    color: "#f00",
+    color: enemyColor,
     type: 3,
   });
   //hunt player until player is caught
@@ -65,7 +71,7 @@ export default function createEnemy() {
             col: route[i].x,
             width: blockWidth,
             height: blockHeight,
-            color: "#0f0",
+            color: fieldColor,
             type: 1,
           });
         }
@@ -80,7 +86,7 @@ export default function createEnemy() {
           col: route[i].x,
           width: blockWidth,
           height: blockHeight,
-          color: "orange",
+          color: trailColor,
           type: 1,
         });
       }
@@ -103,7 +109,7 @@ export default function createEnemy() {
         col: enemyColumn,
         width: blockWidth,
         height: blockHeight,
-        color: "#0f0",
+        color: fieldColor,
         type: 1,
       });
       //draw new position
@@ -112,7 +118,7 @@ export default function createEnemy() {
         col: routeX,
         width: blockWidth,
         height: blockHeight,
-        color: "#f00",
+        color: enemyColor,
         type: 3,
       });
       //update enemy position

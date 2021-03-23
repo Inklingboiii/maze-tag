@@ -20,6 +20,15 @@ export let blockHeight = canvasHeight / numberOfRows;
 export let gridArray = []; //0 represents walls, 1 ground, 2 player and 3 enemy
 export let isGameover = false;
 
+//colors
+
+export const fieldColor = '#0f0';
+export const wallColor = '#000';
+export const playerColor = '#00f';
+export const enemyColor = '#f00';
+export const trailColor = 'orange';
+export const accentColor = 'yellow';
+
 function setCanvasSize() {
   let windowWidth = Math.round(window.innerWidth/1.2);
   let windowHeight = Math.round(window.innerHeight/1.2);
@@ -47,31 +56,72 @@ function createMapArray() {
 createMapArray();
 
 function drawStartingScreen() {
-  drawMap(() => ({color: '#0f0', type: 69}));
-  let playerX = 0.1;
-  let enemyX = 1.5;
+  drawMap(() => ({color: fieldColor, type: 69}));
   //draw enemy
   draw(
     {
       row: 1,
-      col: enemyX,
+      col: 2,
       width: (canvasWidth/3),
       height: (canvasHeight/3),
-      color: '#f00',
+      color: enemyColor,
       type: 69
     }
   );
     //draw player
   draw(
     {
-      row: 1,
-      col: playerX,
+      row: 0,
+      col: 0,
       width: canvasWidth/3,
       height: canvasHeight/3,
-      color: '#00f',
+      color: playerColor,
       type: 69
     }
   );
+
+  //draw trail
+  draw(
+    {
+      row: 1,
+      col: 1,
+      width: canvasWidth/3,
+      height: canvasHeight/3,
+      color: trailColor,
+      type: 69
+    }
+  );
+
+  draw(
+    {
+      row: 1,
+      col: 0,
+      width: canvasWidth/3,
+      height: canvasHeight/3,
+      color: trailColor,
+      type: 69
+    }
+  );
+
+  //draw wall
+
+  draw(
+    {
+      row: 2,
+      col: 2,
+      width: canvasWidth/3,
+      height: canvasHeight/3,
+      color: wallColor,
+      type: 69
+    }
+  )
+  //draw text
+  ctx.textBaseline = 'middle';
+  ctx.textAlign = 'center';
+  ctx.fillStyle = accentColor;
+  ctx.font = '3rem Legend Boy';
+  ctx.fillText('MAZE', Math.round((canvasWidth/3) * 2), Math.round(canvasHeight/3) / 2);
+  ctx.fillText('TAG', canvasWidth/3, canvasHeight/3 * 2.5);
 }
 
 drawStartingScreen();
@@ -85,10 +135,10 @@ function startGame() {
     let data = {};
     if(Math.random() > 0.3) {
       data.type = 1;
-      data.color = '#0f0';
+      data.color = fieldColor;
     } else {
       data.type = 0;
-      data.color = '#000';
+      data.color = wallColor;
     }
     return data;
   });
@@ -122,7 +172,7 @@ export function draw({ row, col, width = blockWidth, height = blockHeight, color
   ctx.rect(Math.round(col * width), Math.round(row * height), width, height);
   ctx.fillStyle = color;
   ctx.fill();
-  ctx.strokeStyle = '#0f0';
+  ctx.strokeStyle = fieldColor;
   ctx.stroke();
   ctx.closePath();
 }
