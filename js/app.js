@@ -30,7 +30,7 @@ export let gridArray = []; //0 represents walls, 1 ground, 2 player and 3 enemy
 export let isGameover;
 
 //colors
-export let colors = simpleColorScheme();
+export let colors = mediterrasianColorScheme();
 
 function setCanvasSize() {
   let windowWidth = Math.round(window.innerWidth/1.2);
