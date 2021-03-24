@@ -2,4 +2,5 @@
     font-family: "Legend Boy";
     src: url("./SuperLegendBoy-4w8Y.woff") format("woff"),
     url("./SuperLegendBoy-4w8Y.ttf") format("truetype");
+    font-display: swap;
   }

@@ -8,12 +8,7 @@ import {
   getRandomPosition,
   gameover,
   isGameover,
-  fieldColor,
-  wallColor,
-  playerColor,
-  enemyColor,
-  trailColor,
-  accentColor
+  colors
 } from "./app.js";
 import { playerRow, playerColumn, lastPlayerRow, lastPlayerColumn } from "./player.js";
 import findBestRoute from "./pathFinder.js";
@@ -29,7 +24,7 @@ export default function createEnemy() {
     col: enemyColumn,
     width: blockWidth,
     height: blockHeight,
-    color: enemyColor,
+    color: colors.enemyColor,
     type: 3,
   });
   //hunt player until player is caught
@@ -48,7 +43,7 @@ export default function createEnemy() {
         )
         //update route visualization if players position changed
           if(playerRow !== lastPlayerRow || playerColumn !== lastPlayerColumn) {
-            draw({row: lastPlayerRow, col: lastPlayerColumn, width: blockWidth, height: blockHeight, color: 'orange', type: 1});
+            draw({row: lastPlayerRow, col: lastPlayerColumn, width: blockWidth, height: blockHeight, color: colors.trailColor, type: 1});
           }
       } else {
         console.log('oops')
@@ -71,7 +66,7 @@ export default function createEnemy() {
             col: route[i].x,
             width: blockWidth,
             height: blockHeight,
-            color: fieldColor,
+            color: colors.fieldColor,
             type: 1,
           });
         }
@@ -86,7 +81,7 @@ export default function createEnemy() {
           col: route[i].x,
           width: blockWidth,
           height: blockHeight,
-          color: trailColor,
+          color: colors.trailColor,
           type: 1,
         });
       }
@@ -109,7 +104,7 @@ export default function createEnemy() {
         col: enemyColumn,
         width: blockWidth,
         height: blockHeight,
-        color: fieldColor,
+        color: colors.fieldColor,
         type: 1,
       });
       //draw new position
@@ -118,7 +113,7 @@ export default function createEnemy() {
         col: routeX,
         width: blockWidth,
         height: blockHeight,
-        color: enemyColor,
+        color: colors.enemyColor,
         type: 3,
       });
       //update enemy position

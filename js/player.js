@@ -8,12 +8,7 @@ import {
   getRandomPosition,
   gameover,
   isGameover,
-  fieldColor,
-  wallColor,
-  playerColor,
-  enemyColor,
-  trailColor,
-  accentColor
+ colors
 } from "./app.js";
 
 //player input directions
@@ -42,7 +37,7 @@ export default function createPlayer() {
     col: playerColumn,
     width: blockWidth,
     height: blockHeight,
-    color: playerColor,
+    color: colors.playerColor,
     type: 2,
   }); //register it as ground at first cus player duplicates
   window.addEventListener("keydown", (key) => {
@@ -80,7 +75,7 @@ export default function createPlayer() {
       col: playerColumn,
       width: blockWidth,
       height: blockHeight,
-      color: playerColor,
+      color: colors.playerColor,
       type: 2
     });
     //only erase last position if it isnt equal to current position
@@ -90,7 +85,7 @@ export default function createPlayer() {
         col: lastPlayerColumn,
         width: blockWidth,
         height: blockHeight,
-        color: fieldColor,
+        color: colors.fieldColor,
         type: 1
       });
     }
