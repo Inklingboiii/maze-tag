@@ -13,7 +13,29 @@
 <body>
     <main>
         <canvas id="grid" height="400" width="400">A Game</canvas>
-        <button id="start-game">Start Game</button>
+        <form id="game-form">
+            <section>
+                <label for="board-width"> Board Width:</label>
+                <input type="number" min="2" max="100" value="25">
+            </section>
+            <section>
+                <label for="board-height"> Board Height:</label>
+                <input type="number" min="2" max="100" value="25">
+            </section>
+            <section>
+                <label for="show-trail">Show Enemy Trail:</label>
+                <input type="checkbox" name="show-trail" id="show-trail">
+            </section>
+            <section>
+                <label for="enemy-speed">Enemy Speed:</label>
+                <input type="range" min="50" max="500" step="50" id="enemy" value="250">
+            </section>
+            <section>
+                <label for="wall-frequency">Wall Frequency In Percent</label>
+                <input type="number" min="0" max="100" value="25">
+            </section>
+            <button type="submit" id="start-game">Start Game</button>
+        </form>
     </main>
 </body>
 </html>

@@ -51,9 +51,7 @@ export default function createPlayer() {
     if(gridArray[playerRow][playerColumn].type === 3 ) {
       return gameover();
     }
-    //store player's last position and delete it after its new position was drawn
-    lastPlayerRow = playerRow;
-    lastPlayerColumn = playerColumn;
+    
     switch (key.code) {
       //check collissions and that the buttons arent being held
       case up:
@@ -116,6 +114,9 @@ export default function createPlayer() {
       gridArray[playerRow + row][playerColumn + col].type === 1 &&
       isPressed[button] === false
     ) {
+      //update current position and assign last position to last pos variables
+      lastPlayerRow = playerRow;
+      lastPlayerColumn = playerColumn;
       playerRow += row;
       playerColumn += col;
       isPressed[button] = true;

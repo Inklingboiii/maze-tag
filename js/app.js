@@ -14,7 +14,7 @@ import {
 
 //variables
 
-const startButton = document.querySelector("#start-game");
+const gameForm = document.querySelector("#game-form");
 export const canvas = document.querySelector("#grid");
 export const ctx = canvas.getContext("2d");
 export const numberOfColumns = 25;
@@ -60,17 +60,20 @@ createMapArray();
 
 drawStartingScreen();
 
-startButton.addEventListener("click", startGame);
+gameForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  startGame();
+});
 
 function startGame() {
-  startButton.removeEventListener('click', startGame);
+  gameForm.removeEventListener('submit', startGame);
   isGameover = false;
   gridArray = [];
   createMapArray();
 
   drawMap(() => {
     let data = {};
-    if(Math.random() > 0.3) {
+    if(Math.random() > 0.25) {
       data.type = 1;
       data.color = colors.fieldColor;
     } else {
@@ -130,5 +133,5 @@ export function getRandomPosition() {
 export function gameover() {
   isGameover = true;
   alert('gameover nub');
-  startButton.addEventListener('click', startGame)
+  gameForm.addEventListener('submit', startGame)
 }

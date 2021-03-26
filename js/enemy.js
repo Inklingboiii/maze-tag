@@ -8,9 +8,14 @@ import {
   getRandomPosition,
   gameover,
   isGameover,
-  colors
+  colors,
 } from "./app.js";
-import { playerRow, playerColumn, lastPlayerRow, lastPlayerColumn } from "./player.js";
+import {
+  playerRow,
+  playerColumn,
+  lastPlayerRow,
+  lastPlayerColumn,
+} from "./player.js";
 import findBestRoute from "./pathFinder.js";
 
 export default function createEnemy() {
@@ -18,7 +23,6 @@ export default function createEnemy() {
   let route;
   let [enemyRow, enemyColumn] = getRandomPosition();
   //render enemy
-
   draw({
     row: enemyRow,
     col: enemyColumn,
@@ -27,27 +31,39 @@ export default function createEnemy() {
     color: colors.enemyColor,
     type: 3,
   });
-  //hunt player until player is caught
+  //initial route
   route = findBestRoute(enemyRow, enemyColumn);
+  //hunt player until player is caught
   moveEnemy(route);
   //copy players movement and add it to queue
   window.addEventListener("keydown", (key) => {
-    if (!isGameover) {
-      //if last player pos is equal to last route pos then add newest player position to route
-      if(route[route.length - 1].y === lastPlayerRow && route[route.length - 1].x === lastPlayerColumn) {
-        route.push(
-          {
-            y: playerRow,
-            x: playerColumn
-          }
-        )
-        //update route visualization if players position changed
-          if(playerRow !== lastPlayerRow || playerColumn !== lastPlayerColumn) {
-            draw({row: lastPlayerRow, col: lastPlayerColumn, width: blockWidth, height: blockHeight, color: colors.trailColor, type: 1});
-          }
-      } else {
-        console.log('oops')
+    if (isGameover) {
+      return;
+    }
+    //if last player pos is equal to last route pos then add newest player position to route
+    if (
+      route[route.length - 1].y === lastPlayerRow &&
+      route[route.length - 1].x === lastPlayerColumn
+    ) {
+      route.push({
+        y: playerRow,
+        x: playerColumn,
+      });
+      //update route visualization if players position changed
+      if (playerRow !== lastPlayerRow || playerColumn !== lastPlayerColumn) {
+        draw({
+          row: lastPlayerRow,
+          col: lastPlayerColumn,
+          width: blockWidth,
+          height: blockHeight,
+          color: colors.trailColor,
+          type: 1,
+        });
       }
+    } else {
+      console.log(
+       'error in player position'
+      );
     }
   });
 
@@ -60,7 +76,7 @@ export default function createEnemy() {
       //erase old route visualization
       let routeLength = route.length - 1;
       for (let i = 0; i < routeLength; i++) {
-        if(route[i].y !== playerRow || route[i].x !== playerColumn) {
+        if (route[i].y !== playerRow || route[i].x !== playerColumn) {
           draw({
             row: route[i].y,
             col: route[i].x,

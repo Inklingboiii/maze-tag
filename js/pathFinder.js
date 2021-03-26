@@ -62,7 +62,7 @@ export default function findBestRoute(enemyY, enemyX) {
         for (let i = 0; i < numberOfRows; i++) {
           for (let j = 0; j < numberOfColumns; j++) {
             if (gridArray[i][j].type === 2) {
-              console.log(i, j);
+              console.log('player position', i, j);
             }
           }
         }
