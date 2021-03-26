@@ -1,4 +1,6 @@
 import {
+  shouldShowTrail,
+  enemySpeed,
   draw,
   blockWidth,
   blockHeight,
@@ -49,8 +51,8 @@ export default function createEnemy() {
         y: playerRow,
         x: playerColumn,
       });
-      //update route visualization if players position changed
-      if (playerRow !== lastPlayerRow || playerColumn !== lastPlayerColumn) {
+      //update route visualization if players position changed and user toggled on trail showing
+      if ((playerRow !== lastPlayerRow || playerColumn !== lastPlayerColumn) && shouldShowTrail) {
         draw({
           row: lastPlayerRow,
           col: lastPlayerColumn,
@@ -73,7 +75,11 @@ export default function createEnemy() {
       if (isGameover) {
         clearInterval(updateRouteInterval);
       }
-      //erase old route visualization
+      if(!shouldShowTrail) {
+         //update/recalculate route early without updating route
+      return route = findBestRoute(enemyRow, enemyColumn);
+      }
+         //erase old route visualization
       let routeLength = route.length - 1;
       for (let i = 0; i < routeLength; i++) {
         if (route[i].y !== playerRow || route[i].x !== playerColumn) {
@@ -137,7 +143,7 @@ export default function createEnemy() {
       enemyColumn = routeX;
       //remove position from route
       route.shift();
-    }, 200);
+    }, enemySpeed);
     return moveInterval;
   }
 }

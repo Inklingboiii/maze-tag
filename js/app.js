@@ -17,8 +17,9 @@ import {
 const gameForm = document.querySelector("#game-form");
 export const canvas = document.querySelector("#grid");
 export const ctx = canvas.getContext("2d");
-export const numberOfColumns = 25;
-export const numberOfRows = 25;
+export let numberOfColumns = document.querySelector('#board-height').value;
+export let numberOfRows = document.querySelector('#board-width').value;
+export let shouldShowTrail = false;
 
 export let canvasHeight;
 export let canvasWidth;
@@ -28,6 +29,15 @@ export let blockWidth = canvasWidth / numberOfColumns;
 export let blockHeight = canvasHeight / numberOfRows;
 export let gridArray = []; //0 represents walls, 1 ground, 2 player and 3 enemy
 export let isGameover;
+//enemy speed slider
+let speedInput = document.querySelector('#enemy-speed');
+let speedOutput = document.querySelector('#enemy-speed-output');
+speedOutput.textContent = speedInput.value;
+speedInput.addEventListener('input', () => {
+  speedOutput.textContent = speedInput.value;
+})
+export let enemySpeed;
+export let wallFrequency;
 
 //colors
 export let colors = mediterrasianColorScheme();
@@ -66,6 +76,7 @@ gameForm.addEventListener("submit", (e) => {
 });
 
 function startGame() {
+  configVars();
   gameForm.removeEventListener('submit', startGame);
   isGameover = false;
   gridArray = [];
@@ -73,7 +84,7 @@ function startGame() {
 
   drawMap(() => {
     let data = {};
-    if(Math.random() > 0.25) {
+    if(Math.random() > wallFrequency) {
       data.type = 1;
       data.color = colors.fieldColor;
     } else {
@@ -82,7 +93,7 @@ function startGame() {
     }
     return data;
   });
-
+  console.log(gridArray)
   createPlayer();
   createEnemy();
 }
@@ -134,4 +145,15 @@ export function gameover() {
   isGameover = true;
   alert('gameover nub');
   gameForm.addEventListener('submit', startGame)
+}
+
+function configVars() {
+  numberOfRows = document.querySelector('#board-width').value;
+  numberOfColumns = document.querySelector('#board-height').value;
+  blockHeight = canvasHeight/numberOfRows;
+  blockWidth = canvasWidth/numberOfColumns;
+
+  shouldShowTrail = document.querySelector('#show-trail').checked;
+  enemySpeed = speedInput.value;
+  wallFrequency = document.querySelector('#wall-frequency').value / 100;
 }

@@ -16,11 +16,11 @@
         <form id="game-form">
             <section>
                 <label for="board-width"> Board Width:</label>
-                <input type="number" min="2" max="100" value="25">
+                <input type="number" min="2" max="100" value="25" id="board-width">
             </section>
             <section>
                 <label for="board-height"> Board Height:</label>
-                <input type="number" min="2" max="100" value="25">
+                <input type="number" min="2" max="100" value="25" id="board-height">
             </section>
             <section>
                 <label for="show-trail">Show Enemy Trail:</label>
@@ -28,11 +28,14 @@
             </section>
             <section>
                 <label for="enemy-speed">Enemy Speed:</label>
-                <input type="range" min="50" max="500" step="50" id="enemy" value="250">
+                <input type="range" min="50" max="500" step="50" id="enemy-speed" value="250">
+                <output for="enemy-speed" id="enemy-speed-output"></output>
             </section>
             <section>
                 <label for="wall-frequency">Wall Frequency In Percent</label>
-                <input type="number" min="0" max="100" value="25">
+                <input type="number" min="0" max="99" value="25" id="wall-frequency">
+            </section>
+            <section>
             </section>
             <button type="submit" id="start-game">Start Game</button>
         </form>
