@@ -53,14 +53,12 @@ export default function createEnemy() {
       });
       //update route visualization if players position changed and user toggled on trail showing
       if ((playerRow !== lastPlayerRow || playerColumn !== lastPlayerColumn) && shouldShowTrail) {
-        drawRect({
-          row: lastPlayerRow,
-          col: lastPlayerColumn,
-          width: blockWidth,
-          height: blockHeight,
-          color: colors.trailColor,
-          type: 1,
-        });
+          drawRect({
+            row: lastPlayerRow,
+            col: lastPlayerColumn,
+            color: colors.trailColor,
+            type: 1,
+          });
       }
     } else {
       console.log(
