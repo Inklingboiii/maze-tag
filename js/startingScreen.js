@@ -68,10 +68,10 @@ export default function drawStartingScreen() {
       }
     )
     //draw text
-    ctx.textBaseline = 'middle';
-    ctx.textAlign = 'center';
-    ctx.fillStyle = colors.accentColor;
-    ctx.font = '3rem "Legend Boy"';
-    ctx.fillText('MAZE', Math.round((canvasWidth/3) * 2), Math.round(canvasHeight/3) / 2);
-    ctx.fillText('TAG', canvasWidth/3, canvasHeight/3 * 2.5);
+      ctx.textBaseline = 'middle';
+      ctx.textAlign = 'center';
+      ctx.fillStyle = colors.accentColor;
+      ctx.font = '3rem "Legend Boy"';
+      ctx.fillText('MAZE', Math.round((canvasWidth/3) * 2), Math.round(canvasHeight/3) / 2);
+      ctx.fillText('TAG', canvasWidth/3, canvasHeight/3 * 2.5);
   }
