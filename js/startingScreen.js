@@ -5,7 +5,7 @@ import {
      colors,
      canvasWidth,
      canvasHeight,
-     ctx 
+     gameCtx 
     } from './app.js';
 
 export default function drawStartingScreen() {
@@ -69,10 +69,10 @@ export default function drawStartingScreen() {
         type: 69
       })
     //draw text
-      ctx.textBaseline = 'middle';
-      ctx.textAlign = 'center';
-      ctx.fillStyle = colors.coinColor;
-      ctx.font = '3rem "Legend Boy"';
-      ctx.fillText('MAZE', Math.round((canvasWidth/3) * 2), Math.round(canvasHeight/3) / 2);
-      ctx.fillText('TAG', canvasWidth/3, canvasHeight/3 * 2.5);
+      gameCtx.textBaseline = 'middle';
+      gameCtx.textAlign = 'center';
+      gameCtx.fillStyle = colors.coinColor;
+      gameCtx.font = '3rem "Legend Boy"';
+      gameCtx.fillText('MAZE', Math.round((canvasWidth/3) * 2), Math.round(canvasHeight/3) / 2);
+      gameCtx.fillText('TAG', canvasWidth/3, canvasHeight/3 * 2.5);
   }

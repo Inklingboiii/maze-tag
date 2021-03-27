@@ -2,7 +2,7 @@
 
 import {
   drawRect,
-  ctx,
+  gameCtx,
   gridArray,
   blockHeight,
   blockWidth,

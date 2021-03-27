@@ -1,5 +1,6 @@
 //imports
 import {
+  coinCtx,
   drawRect,
   blockWidth,
   blockHeight,
@@ -11,7 +12,9 @@ import {
   isGameover,
   colors,
   score,
-  setScore
+  setScore,
+  canvasWidth,
+  canvasHeight
 } from "./app.js";
 
 //player input directions
@@ -128,6 +131,8 @@ export default function createPlayer() {
         isPressed[button] = true;
         if (block.hasCoin === true) {
           block.hasCoin = false;
+          //erase coin
+          coinCtx.clearRect(playerColumn * blockWidth, playerRow * blockWidth, blockWidth, blockHeight);
           setScore(10);
           console.log("got coin");
         }

@@ -9,8 +9,11 @@ import colorSchemesArray from './colorschemes.js';
 //variables
 
 const gameForm = document.querySelector("#game-form");
-export const canvas = document.querySelector("#grid");
-export const ctx = canvas.getContext("2d");
+export const canvasContainer = document.querySelector('.canvas-container');
+export const gameCanvas = document.querySelector("#grid");
+export const gameCtx = gameCanvas.getContext("2d");
+export const coinCanvas = document.querySelector("#coins");
+export const coinCtx = coinCanvas.getContext("2d");
 export let numberOfColumns = document.querySelector('#board-height').value;
 export let numberOfRows = document.querySelector('#board-width').value;
 export let score = 0;
@@ -46,8 +49,13 @@ function setCanvasSize() {
   } else {
     size = windowHeight;
   }
-  canvas.setAttribute('width', size);
-  canvas.setAttribute('height',size);
+  //set size of canvas and canvascontainer
+  [gameCanvas, coinCanvas].forEach((canvas) => {
+  canvas.width = size;
+  canvas.height = size;
+  });
+  canvasContainer.style.height = size + "px";
+  canvasContainer.style.width = size + "px";
   canvasHeight = size;
   canvasWidth = size;
 }
@@ -76,7 +84,7 @@ function startGame() {
   isGameover = false;
   gridArray = [];
   createMapArray();
-
+  //clear gamecanvas and coincanvas
   drawMap(() => {
     let data = {};
     if(Math.random() > wallFrequency) {
@@ -88,6 +96,7 @@ function startGame() {
     }
     return data;
   });
+  coinCtx.clearRect(0, 0, canvasWidth, canvasHeight);
   createPlayer();
   createEnemy();
   spawnCoins();
@@ -115,26 +124,26 @@ export function drawRect({ row, col, width = blockWidth, height = blockHeight, c
     1. finding starting square point by multiplying the current column one is currently one times the width of a column(x position) and multiplying the current row with the height of a row
     2. setting the size of the square with the the width of a column and the height of a row*/
   gridArray[Math.round(row)][Math.round(col)].type = type;
-  ctx.beginPath();
-  ctx.rect(Math.round(col * width), Math.round(row * height), width, height);
-  ctx.fillStyle = color;
-  ctx.fill();
-  ctx.strokeStyle = colors.fieldColor;
-  ctx.stroke();
-  ctx.closePath();
+  gameCtx.beginPath();
+  gameCtx.rect(Math.round(col * width), Math.round(row * height), width, height);
+  gameCtx.fillStyle = color;
+  gameCtx.fill();
+  gameCtx.strokeStyle = colors.fieldColor;
+  gameCtx.stroke();
+  gameCtx.closePath();
 }
 
 export function drawCoin({row, col, width = blockWidth, height = blockHeight, color = colors.coinColor}) {
   //register coin in array
   gridArray[row][col].hasCoin = true;
   //draw random coin
- ctx.beginPath();
+ coinCtx.beginPath();
  //since its a radius, the x and y position needs to be offset into the middle of the square
- ctx.arc(Math.round((col * width) + width/2), Math.round((row * height) + height/2), Math.round(width/2), 0, 2 * Math.PI, false);
- ctx.fillStyle = color;
- ctx.fill();
-ctx.strokeStyle = colors.fieldColor;
-ctx.stroke();
+ coinCtx.arc(Math.round((col * width) + width/2), Math.round((row * height) + height/2), Math.round(width/2), 0, 2 * Math.PI, false);
+ coinCtx.fillStyle = color;
+ coinCtx.fill();
+coinCtx.strokeStyle = colors.fieldColor;
+coinCtx.stroke();
 }
 
 export function getRandomPosition() {

@@ -52,18 +52,19 @@ export default function createEnemy() {
         x: playerColumn,
       });
       //update route visualization if players position changed and user toggled on trail showing
-      if ((playerRow !== lastPlayerRow || playerColumn !== lastPlayerColumn) && shouldShowTrail) {
-          drawRect({
-            row: lastPlayerRow,
-            col: lastPlayerColumn,
-            color: colors.trailColor,
-            type: 1,
-          });
+      if (
+        (playerRow !== lastPlayerRow || playerColumn !== lastPlayerColumn) &&
+        shouldShowTrail
+      ) {
+        drawRect({
+          row: lastPlayerRow,
+          col: lastPlayerColumn,
+          color: colors.trailColor,
+          type: 1,
+        });
       }
     } else {
-      console.log(
-       'error in player position'
-      );
+      console.log("error in player position");
     }
   });
 
@@ -73,11 +74,11 @@ export default function createEnemy() {
       if (isGameover) {
         return clearInterval(updateRouteInterval);
       }
-      if(!shouldShowTrail) {
-         //update/recalculate route early without updating route
-      return route = findBestRoute(enemyRow, enemyColumn);
+      if (!shouldShowTrail) {
+        //update/recalculate route early without updating route
+        return (route = findBestRoute(enemyRow, enemyColumn));
       }
-         //erase old route visualization
+      //erase old route visualization
       let routeLength = route.length - 1;
       for (let i = 0; i < routeLength; i++) {
         if (route[i].y !== playerRow || route[i].x !== playerColumn) {

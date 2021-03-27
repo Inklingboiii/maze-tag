@@ -18,9 +18,23 @@ main {
     justify-content: center;
     align-items: center;
 }
+
+.canvas-container {
+    position: relative;
+}
 canvas {
     border: 1px solid black;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
+
+#grid {
+    z-index: -1;
+}
+
 #start-game {
     border-radius: 9999999999px;
     background: #00f;
