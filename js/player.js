@@ -1,13 +1,11 @@
 //imports
 import {
   coinCtx,
-  drawRect,
   blockWidth,
   blockHeight,
   gridArray,
   numberOfColumns,
   numberOfRows,
-  getRandomPosition,
   gameover,
   isGameover,
   colors,
@@ -16,6 +14,8 @@ import {
   canvasWidth,
   canvasHeight
 } from "./app.js";
+
+import helper from './helper.js';
 
 //player input directions
 
@@ -36,9 +36,9 @@ export let playerColumn;
 export let lastPlayerRow;
 export let lastPlayerColumn;
 export default function createPlayer() {
-  [playerRow, playerColumn] = getRandomPosition();
+  [playerRow, playerColumn] = helper.getRandomPosition();
   //render player in map
-  drawRect({
+  helper.drawRect({
     row: playerRow,
     col: playerColumn,
     width: blockWidth,
@@ -74,7 +74,7 @@ export default function createPlayer() {
         break;
     }
     //redraw player after new position
-    drawRect({
+    helper.drawRect({
       row: playerRow,
       col: playerColumn,
       width: blockWidth,
@@ -84,7 +84,7 @@ export default function createPlayer() {
     });
     //only erase last position if it isnt equal to current position
     if (playerRow !== lastPlayerRow || playerColumn !== lastPlayerColumn) {
-      drawRect({
+      helper.drawRect({
         row: lastPlayerRow,
         col: lastPlayerColumn,
         width: blockWidth,

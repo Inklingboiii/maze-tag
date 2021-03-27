@@ -1,17 +1,16 @@
 //imports
 
 import {
-  drawRect,
   gameCtx,
   gridArray,
   blockHeight,
   blockWidth,
-  getRandomPosition,
   gameover,
   isGameover,
   colors,
-  drawCoin
 } from './app.js';
+
+import helper from './helper.js';
 
 export default function spawnCoins() {
     let coinInterval = setInterval(() => {
@@ -20,9 +19,9 @@ export default function spawnCoins() {
             return clearInterval(coinInterval);
         }
         //get random position
-        let [posY, posX] = getRandomPosition();
+        let [posY, posX] = helper.getRandomPosition();
         //draw coin and register it in array
-        drawCoin({
+        helper.drawCoin({
             row: posY,
             col: posX,
             color: colors.coinColor,

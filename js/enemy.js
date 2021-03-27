@@ -2,13 +2,11 @@ import {
   coinCtx,
   shouldShowTrail,
   enemySpeed,
-  drawRect,
   blockWidth,
   blockHeight,
   gridArray,
   numberOfColumns,
   numberOfRows,
-  getRandomPosition,
   gameover,
   isGameover,
   colors,
@@ -21,13 +19,14 @@ import {
   lastPlayerColumn,
 } from "./player.js";
 import findBestRoute from "./pathFinder.js";
+import helper from './helper.js';
 
 export default function createEnemy() {
   //positional variables
   let route;
-  let [enemyRow, enemyColumn] = getRandomPosition();
+  let [enemyRow, enemyColumn] = helper.getRandomPosition();
   //render enemy
-  drawRect({
+  helper.drawRect({
     row: enemyRow,
     col: enemyColumn,
     width: blockWidth,
@@ -58,7 +57,7 @@ export default function createEnemy() {
         (playerRow !== lastPlayerRow || playerColumn !== lastPlayerColumn) &&
         shouldShowTrail
       ) {
-        drawRect({
+        helper.drawRect({
           row: lastPlayerRow,
           col: lastPlayerColumn,
           color: colors.trailColor,
@@ -84,7 +83,7 @@ export default function createEnemy() {
       let routeLength = route.length - 1;
       for (let i = 0; i < routeLength; i++) {
         if (route[i].y !== playerRow || route[i].x !== playerColumn) {
-          drawRect({
+          helper.drawRect({
             row: route[i].y,
             col: route[i].x,
             width: blockWidth,
@@ -99,7 +98,7 @@ export default function createEnemy() {
       //draw new route
       routeLength = route.length;
       for (let i = 0; i < routeLength - 1; i++) {
-        drawRect({
+        helper.drawRect({
           row: route[i].y,
           col: route[i].x,
           width: blockWidth,
@@ -124,7 +123,7 @@ export default function createEnemy() {
       //if last position was touching a coin turn square into a wall and remove coin, else turn it into a walkable field
       if(gridArray[enemyRow][enemyColumn].hasCoin) {
         coinCtx.clearRect(enemyColumn * blockWidth, enemyRow * blockWidth, blockWidth, blockHeight);
-        drawRect({
+        helper.drawRect({
           row: enemyRow,
           col: enemyColumn,
           width: blockWidth,
@@ -134,7 +133,7 @@ export default function createEnemy() {
         });
         setScore(-5);
       } else {
-        drawRect({
+        helper.drawRect({
           row: enemyRow,
           col: enemyColumn,
           width: blockWidth,
@@ -144,7 +143,7 @@ export default function createEnemy() {
         });
       }
       //draw new position
-      drawRect({
+      helper.drawRect({
         row: routeY,
         col: routeX,
         width: blockWidth,
