@@ -3,14 +3,7 @@
 import createPlayer from "./player.js";
 import createEnemy from "./enemy.js";
 import drawStartingScreen from './startingScreen.js';
-import {
-  defaultColorScheme,
-  simpleColorScheme,
-  mediterrasianColorScheme,
-  bartmanColorScheme,
-  technoColorScheme,
-  funkymonkeyColorScheme
-} from './colorschemes.js'
+import colorSchemesArray from './colorschemes.js'
 
 //variables
 
@@ -40,7 +33,7 @@ export let enemySpeed;
 export let wallFrequency;
 
 //colors
-export let colors = mediterrasianColorScheme();
+export let colors = colorSchemesArray[0]();
 
 function setCanvasSize() {
   let windowWidth = Math.round(window.innerWidth/1.2);
@@ -148,6 +141,14 @@ export function gameover() {
 }
 
 function configVars() {
+  //color scheme
+  let radios = document.getElementsByName('color-scheme');
+  [...radios].map((radio) => {
+    if(radio.checked) {
+      console.log(radio.value)
+      colors = colorSchemesArray[radio.value]();
+    }
+  })
   numberOfRows = document.querySelector('#board-width').value;
   numberOfColumns = document.querySelector('#board-height').value;
   blockHeight = canvasHeight/numberOfRows;
