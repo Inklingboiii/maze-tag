@@ -2,8 +2,9 @@
 
 import createPlayer from "./player.js";
 import createEnemy from "./enemy.js";
+import spawnCoins from './coinspawner.js'
 import drawStartingScreen from './startingScreen.js';
-import colorSchemesArray from './colorschemes.js'
+import colorSchemesArray from './colorschemes.js';
 
 //variables
 
@@ -12,6 +13,7 @@ export const canvas = document.querySelector("#grid");
 export const ctx = canvas.getContext("2d");
 export let numberOfColumns = document.querySelector('#board-height').value;
 export let numberOfRows = document.querySelector('#board-width').value;
+export let score = 0;
 export let shouldShowTrail = false;
 
 export let canvasHeight;
@@ -20,7 +22,7 @@ setCanvasSize();
 
 export let blockWidth = canvasWidth / numberOfColumns;
 export let blockHeight = canvasHeight / numberOfRows;
-export let gridArray = []; //0 represents walls, 1 ground, 2 player and 3 enemy
+export let gridArray = []; //0 represents walls, 1 ground, 2 player 4 for enemy and 5 for coin
 export let isGameover;
 //enemy speed slider
 let speedInput = document.querySelector('#enemy-speed');
@@ -86,9 +88,9 @@ function startGame() {
     }
     return data;
   });
-  console.log(gridArray)
   createPlayer();
   createEnemy();
+  spawnCoins();
 }
 
 export function drawMap(dataGetter) {
@@ -96,7 +98,7 @@ export function drawMap(dataGetter) {
     for (let col = 0; col < numberOfColumns; col++) {
       //draw block depending on data param
       let randomData = dataGetter();
-      draw(
+      drawRect(
         {
           row: row,
           col: col,
@@ -108,7 +110,7 @@ export function drawMap(dataGetter) {
   }
 }
 
-export function draw({ row, col, width = blockWidth, height = blockHeight, color, type }) {
+export function drawRect({ row, col, width = blockWidth, height = blockHeight, color, type }) {
   /*render square:
     1. finding starting square point by multiplying the current column one is currently one times the width of a column(x position) and multiplying the current row with the height of a row
     2. setting the size of the square with the the width of a column and the height of a row*/
@@ -120,6 +122,19 @@ export function draw({ row, col, width = blockWidth, height = blockHeight, color
   ctx.strokeStyle = colors.fieldColor;
   ctx.stroke();
   ctx.closePath();
+}
+
+export function drawCoin({row, col, width = blockWidth, height = blockHeight, color = colors.coinColor}) {
+  //register coin in array
+  gridArray[row][col].hasCoin = true;
+  //draw random coin
+ ctx.beginPath();
+ //since its a radius, the x and y position needs to be offset into the middle of the square
+ ctx.arc(Math.round((col * width) + width/2), Math.round((row * height) + height/2), Math.round(width/2), 0, 2 * Math.PI, false);
+ ctx.fillStyle = color;
+ ctx.fill();
+ctx.strokeStyle = colors.fieldColor;
+ctx.stroke();
 }
 
 export function getRandomPosition() {
@@ -135,17 +150,21 @@ export function getRandomPosition() {
 }
 
 export function gameover() {
+  //return early if function was already called
+  if(isGameover) {
+    return;
+  }
   isGameover = true;
-  alert('gameover nub');
+  alert(`Gameover nub, your score is ${score}`);
   gameForm.addEventListener('submit', startGame)
 }
 
 function configVars() {
+  score = 0;
   //color scheme
   let radios = document.getElementsByName('color-scheme');
   [...radios].map((radio) => {
     if(radio.checked) {
-      console.log(radio.value)
       colors = colorSchemesArray[radio.value]();
     }
   })
@@ -157,4 +176,9 @@ function configVars() {
   shouldShowTrail = document.querySelector('#show-trail').checked;
   enemySpeed = speedInput.value;
   wallFrequency = document.querySelector('#wall-frequency').value / 100;
+}
+
+//this is needed so other modules can mutate score variable
+export function setScore(number) {
+  score += number;
 }

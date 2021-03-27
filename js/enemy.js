@@ -1,7 +1,7 @@
 import {
   shouldShowTrail,
   enemySpeed,
-  draw,
+  drawRect,
   blockWidth,
   blockHeight,
   gridArray,
@@ -25,7 +25,7 @@ export default function createEnemy() {
   let route;
   let [enemyRow, enemyColumn] = getRandomPosition();
   //render enemy
-  draw({
+  drawRect({
     row: enemyRow,
     col: enemyColumn,
     width: blockWidth,
@@ -53,7 +53,7 @@ export default function createEnemy() {
       });
       //update route visualization if players position changed and user toggled on trail showing
       if ((playerRow !== lastPlayerRow || playerColumn !== lastPlayerColumn) && shouldShowTrail) {
-        draw({
+        drawRect({
           row: lastPlayerRow,
           col: lastPlayerColumn,
           width: blockWidth,
@@ -73,7 +73,7 @@ export default function createEnemy() {
     route = routeParam;
     let updateRouteInterval = setInterval(() => {
       if (isGameover) {
-        clearInterval(updateRouteInterval);
+        return clearInterval(updateRouteInterval);
       }
       if(!shouldShowTrail) {
          //update/recalculate route early without updating route
@@ -83,7 +83,7 @@ export default function createEnemy() {
       let routeLength = route.length - 1;
       for (let i = 0; i < routeLength; i++) {
         if (route[i].y !== playerRow || route[i].x !== playerColumn) {
-          draw({
+          drawRect({
             row: route[i].y,
             col: route[i].x,
             width: blockWidth,
@@ -98,7 +98,7 @@ export default function createEnemy() {
       //draw new route
       routeLength = route.length;
       for (let i = 0; i < routeLength - 1; i++) {
-        draw({
+        drawRect({
           row: route[i].y,
           col: route[i].x,
           width: blockWidth,
@@ -107,7 +107,7 @@ export default function createEnemy() {
           type: 1,
         });
       }
-    }, 1500);
+    }, 1000);
     let moveInterval = setInterval(() => {
       if (isGameover) {
         console.log("cleared interval");
@@ -121,7 +121,7 @@ export default function createEnemy() {
       let routeY = route[0].y;
       let routeX = route[0].x;
       //erase last position
-      draw({
+      drawRect({
         row: enemyRow,
         col: enemyColumn,
         width: blockWidth,
@@ -130,7 +130,7 @@ export default function createEnemy() {
         type: 1,
       });
       //draw new position
-      draw({
+      drawRect({
         row: routeY,
         col: routeX,
         width: blockWidth,

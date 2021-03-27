@@ -1,5 +1,6 @@
+//imports
 import {
-  draw,
+  drawRect,
   blockWidth,
   blockHeight,
   gridArray,
@@ -8,7 +9,9 @@ import {
   getRandomPosition,
   gameover,
   isGameover,
- colors
+  colors,
+  score,
+  setScore
 } from "./app.js";
 
 //player input directions
@@ -32,7 +35,7 @@ export let lastPlayerColumn;
 export default function createPlayer() {
   [playerRow, playerColumn] = getRandomPosition();
   //render player in map
-  draw({
+  drawRect({
     row: playerRow,
     col: playerColumn,
     width: blockWidth,
@@ -48,10 +51,10 @@ export default function createPlayer() {
 
   function movePlayer(key) {
     //removes bug where player can warp through enemy
-    if(gridArray[playerRow][playerColumn].type === 3 ) {
+    if (gridArray[playerRow][playerColumn].type === 3) {
       return gameover();
     }
-    
+
     switch (key.code) {
       //check collissions and that the buttons arent being held
       case up:
@@ -68,23 +71,23 @@ export default function createPlayer() {
         break;
     }
     //redraw player after new position
-    draw({
+    drawRect({
       row: playerRow,
       col: playerColumn,
       width: blockWidth,
       height: blockHeight,
       color: colors.playerColor,
-      type: 2
+      type: 2,
     });
     //only erase last position if it isnt equal to current position
-    if(playerRow !== lastPlayerRow || playerColumn !== lastPlayerColumn) {
-      draw({
+    if (playerRow !== lastPlayerRow || playerColumn !== lastPlayerColumn) {
+      drawRect({
         row: lastPlayerRow,
         col: lastPlayerColumn,
         width: blockWidth,
         height: blockHeight,
         color: colors.fieldColor,
-        type: 1
+        type: 1,
       });
     }
   }
@@ -106,20 +109,29 @@ export default function createPlayer() {
   });
 
   function configurePosition([row, col], button) {
+    //collision checking
     if (
       playerRow + row >= 0 &&
       playerRow + row < numberOfRows &&
       playerColumn + col >= 0 &&
       playerColumn + col < numberOfColumns &&
-      gridArray[playerRow + row][playerColumn + col].type === 1 &&
       isPressed[button] === false
     ) {
-      //update current position and assign last position to last pos variables
-      lastPlayerRow = playerRow;
-      lastPlayerColumn = playerColumn;
-      playerRow += row;
-      playerColumn += col;
-      isPressed[button] = true;
+      let block = gridArray[playerRow + row][playerColumn + col];
+      if (block.type === 1) {
+        //if if space is walkable
+        //update current position and assign last position to last pos variables
+        lastPlayerRow = playerRow;
+        lastPlayerColumn = playerColumn;
+        playerRow += row;
+        playerColumn += col;
+        isPressed[button] = true;
+        if (block.hasCoin === true) {
+          block.hasCoin = false;
+          setScore(10);
+          console.log("got coin");
+        }
+      }
     }
   }
 }

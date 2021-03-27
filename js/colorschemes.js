@@ -5,7 +5,7 @@
     playerColor: "#09bcbc",
     enemyColor: "#dc3f1c",
     trailColor: "#bc6309",
-    accentColor: "#bcbc09",
+    coinColor: "#bcbc09",
   };
 }
 
@@ -16,7 +16,7 @@
     playerColor: "#00f",
     enemyColor: "#f00",
     trailColor: "orange",
-    accentColor: "yellow",
+    coinColor: "yellow",
   };
 }
 
@@ -27,7 +27,7 @@
     playerColor: "#448d7a",
     enemyColor: "#dc3f1c",
     trailColor: "#d8a027",
-    accentColor: "#ebe18c",
+    coinColor: "#ebe18c",
   };
 }
 
@@ -38,7 +38,7 @@
     playerColor: "#3078a8",
     enemyColor: "#d86048",
     trailColor: "#ae8125",
-    accentColor: "#f0c018",
+    coinColor: "#f0c018",
   };
 }
 
@@ -49,7 +49,7 @@
     playerColor: "#246f91",
     enemyColor: "#f77ec3",
     trailColor: "#523563",
-    accentColor: "#fffb19",
+    coinColor: "#fffb19",
   };
 }
 
@@ -60,14 +60,14 @@
     playerColor: "#006048",
     enemyColor: "#c01830",
     trailColor: "#c04830",
-    accentColor: "#c0c000",
+    coinColor: "#c0c000",
   };
 }
 
 export default [
   simpleColorScheme,
-  mediterrasianColorScheme,
   defaultColorScheme,
+  mediterrasianColorScheme,
   bartmanColorScheme,
   technoColorScheme,
   funkymonkeyColorScheme,

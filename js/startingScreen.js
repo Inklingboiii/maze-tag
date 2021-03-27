@@ -1,6 +1,7 @@
 import {
      drawMap,
-     draw,
+     drawRect,
+     drawCoin,
      colors,
      canvasWidth,
      canvasHeight,
@@ -10,7 +11,7 @@ import {
 export default function drawStartingScreen() {
     drawMap(() => ({color: colors.fieldColor, type: 69}));
     //draw enemy
-    draw(
+    drawRect(
       {
         row: 1,
         col: 2,
@@ -21,9 +22,9 @@ export default function drawStartingScreen() {
       }
     );
       //draw player
-    draw(
+    drawRect(
       {
-        row: 0,
+        row: 1,
         col: 0,
         width: canvasWidth/3,
         height: canvasHeight/3,
@@ -33,7 +34,7 @@ export default function drawStartingScreen() {
     );
   
     //draw trail
-    draw(
+    drawRect(
       {
         row: 1,
         col: 1,
@@ -43,21 +44,10 @@ export default function drawStartingScreen() {
         type: 69
       }
     );
-  
-    draw(
-      {
-        row: 1,
-        col: 0,
-        width: canvasWidth/3,
-        height: canvasHeight/3,
-        color: colors.trailColor,
-        type: 69
-      }
-    );
-  
+
     //draw wall
   
-    draw(
+    drawRect(
       {
         row: 2,
         col: 2,
@@ -66,11 +56,22 @@ export default function drawStartingScreen() {
         color: colors.wallColor,
         type: 69
       }
-    )
+    );
+
+    //draw coin
+
+      drawCoin({
+        row: 0,
+        col: 0,
+        width: canvasWidth/3,
+        height: canvasHeight/3,
+        color: colors.coinColor,
+        type: 69
+      })
     //draw text
       ctx.textBaseline = 'middle';
       ctx.textAlign = 'center';
-      ctx.fillStyle = colors.accentColor;
+      ctx.fillStyle = colors.coinColor;
       ctx.font = '3rem "Legend Boy"';
       ctx.fillText('MAZE', Math.round((canvasWidth/3) * 2), Math.round(canvasHeight/3) / 2);
       ctx.fillText('TAG', canvasWidth/3, canvasHeight/3 * 2.5);

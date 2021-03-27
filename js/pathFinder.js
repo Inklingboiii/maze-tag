@@ -1,7 +1,7 @@
 //imports
 
 import {
-  draw,
+  drawRect,
   blockWidth,
   blockHeight,
   gridArray,
