@@ -1,4 +1,5 @@
 import {
+  coinCtx,
   shouldShowTrail,
   enemySpeed,
   drawRect,
@@ -11,6 +12,7 @@ import {
   gameover,
   isGameover,
   colors,
+  setScore,
 } from "./app.js";
 import {
   playerRow,
@@ -119,15 +121,28 @@ export default function createEnemy() {
       }
       let routeY = route[0].y;
       let routeX = route[0].x;
-      //erase last position
-      drawRect({
-        row: enemyRow,
-        col: enemyColumn,
-        width: blockWidth,
-        height: blockHeight,
-        color: colors.fieldColor,
-        type: 1,
-      });
+      //if last position was touching a coin turn square into a wall and remove coin, else turn it into a walkable field
+      if(gridArray[enemyRow][enemyColumn].hasCoin) {
+        coinCtx.clearRect(enemyColumn * blockWidth, enemyRow * blockWidth, blockWidth, blockHeight);
+        drawRect({
+          row: enemyRow,
+          col: enemyColumn,
+          width: blockWidth,
+          height: blockHeight,
+          color: colors.wallColor,
+          type: 0,
+        });
+        setScore(-5);
+      } else {
+        drawRect({
+          row: enemyRow,
+          col: enemyColumn,
+          width: blockWidth,
+          height: blockHeight,
+          color: colors.fieldColor,
+          type: 1,
+        });
+      }
       //draw new position
       drawRect({
         row: routeY,
