@@ -10,6 +10,7 @@ import colorSchemesArray from "./colorschemes.js";
 const gameForm = document.querySelector("#game-form");
 export const canvasContainer = document.querySelector(".canvas-container");
 export const gameCanvas = document.querySelector("#grid");
+const restartButton = document.querySelector('#restart-button');
 export const gameCtx = gameCanvas.getContext("2d");
 export const coinCanvas = document.querySelector("#coins");
 export const coinCtx = coinCanvas.getContext("2d");
@@ -23,23 +24,23 @@ export let canvasWidth;
 
 //set canvas size
 
-  let windowWidth = Math.round(window.innerWidth / 1.2);
-  let windowHeight = Math.round(window.innerHeight / 1.2);
-  let size;
-  if (windowWidth <= windowHeight) {
-    size = windowWidth;
-  } else {
-    size = windowHeight;
-  }
-  //set size of canvas and canvascontainer
-  [gameCanvas, coinCanvas].forEach((canvas) => {
-    canvas.width = size;
-    canvas.height = size;
-  });
-  canvasContainer.style.height = size + "px";
-  canvasContainer.style.width = size + "px";
-  canvasHeight = size;
-  canvasWidth = size;
+let windowWidth = Math.round(window.innerWidth / 1.2);
+let windowHeight = Math.round(window.innerHeight / 1.2);
+let size;
+if (windowWidth <= windowHeight) {
+  size = windowWidth;
+} else {
+  size = windowHeight;
+}
+//set size of canvas and canvascontainer
+[gameCanvas, coinCanvas].forEach((canvas) => {
+  canvas.width = size;
+  canvas.height = size;
+});
+canvasContainer.style.height = size + "px";
+canvasContainer.style.width = size + "px";
+canvasHeight = size;
+canvasWidth = size;
 
 export let blockWidth = canvasWidth / numberOfColumns;
 export let blockHeight = canvasHeight / numberOfRows;
@@ -70,6 +71,7 @@ gameForm.addEventListener("submit", (e) => {
 function startGame() {
   configVars();
   gameForm.removeEventListener("submit", startGame);
+  restartButton.addEventListener('click', restart)
   isGameover = false;
   gridArray = [];
   helper.createMapArray();
@@ -123,4 +125,12 @@ function configVars() {
 //this is needed so other modules can mutate score variable
 export function setScore(number) {
   score += number;
+}
+
+
+function restart() {
+  isGameover = true;
+  gameForm.addEventListener("submit", startGame);
+  restartButton.removeEventListener('click', restart);
+  helper.drawStartingScreen();
 }

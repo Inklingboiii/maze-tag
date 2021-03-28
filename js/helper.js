@@ -101,6 +101,7 @@ export default class helper {
       }
 
       static drawStartingScreen() {
+        coinCtx.clearRect(0, 0, canvasWidth, canvasHeight);
         this.drawMap(() => ({color: colors.fieldColor, type: 69}));
         //draw enemy
         this.drawRect(
