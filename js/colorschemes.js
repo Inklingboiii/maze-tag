@@ -1,25 +1,3 @@
- function defaultColorScheme() {
-  return {
-    fieldColor: "#09bc09",
-    wallColor: "#022626",
-    playerColor: "#09bcbc",
-    enemyColor: "#dc3f1c",
-    trailColor: "#bc6309",
-    coinColor: "#bcbc09",
-  };
-}
-
- function simpleColorScheme() {
-  return {
-    fieldColor: "#0f0",
-    wallColor: "#000",
-    playerColor: "#00f",
-    enemyColor: "#f00",
-    trailColor: "orange",
-    coinColor: "yellow",
-  };
-}
-
  function mediterrasianColorScheme() {
   return {
     fieldColor: "#88a764",
@@ -53,22 +31,10 @@
   };
 }
 
- function funkymonkeyColorScheme() {
-  return {
-    fieldColor: "#187818",
-    wallColor: "#000018",
-    playerColor: "#006048",
-    enemyColor: "#c01830",
-    trailColor: "#c04830",
-    coinColor: "#c0c000",
-  };
-}
+
 
 export default [
-  simpleColorScheme,
-  defaultColorScheme,
   mediterrasianColorScheme,
   bartmanColorScheme,
   technoColorScheme,
-  funkymonkeyColorScheme,
 ];

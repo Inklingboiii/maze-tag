@@ -14,8 +14,9 @@ const restartButton = document.querySelector('#restart-button');
 export const gameCtx = gameCanvas.getContext("2d");
 export const coinCanvas = document.querySelector("#coins");
 export const coinCtx = coinCanvas.getContext("2d");
-export let numberOfColumns = document.querySelector("#board-height").value;
-export let numberOfRows = document.querySelector("#board-width").value;
+export let numberOfRows, numberOfColumns;
+numberOfRows = numberOfColumns =  document.querySelector("#board-size").value;
+console.log(numberOfRows, numberOfColumns)
 export let score = 0;
 export let shouldShowTrail = false;
 
@@ -110,10 +111,14 @@ function configVars() {
   [...radios].map((radio) => {
     if (radio.checked) {
       colors = colorSchemesArray[radio.value]();
+      //set css variables to color variables
+      let root = document.querySelector(':root')
+      root.style.setProperty('--main-color', colors.playerColor);
+
     }
   });
-  numberOfRows = document.querySelector("#board-width").value;
-  numberOfColumns = document.querySelector("#board-height").value;
+  numberOfRows = numberOfColumns = document.querySelector("#board-size").value;
+  console.log(numberOfRows, numberOfColumns)
   blockHeight = canvasHeight / numberOfRows;
   blockWidth = canvasWidth / numberOfColumns;
 
