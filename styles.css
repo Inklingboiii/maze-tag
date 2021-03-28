@@ -1,6 +1,8 @@
 :root {
-    --main-color:
-    --accent-color:
+    --fore-ground-color: #222;
+    --background-color: #eee;
+    --accent-color-one: blue; /*accent colors will be changed with js to match game colors*/
+    --accent-color-two: red;
 }
 
 *,
@@ -10,20 +12,23 @@
 }
 
 body {
+    overflow-x: hidden;
     margin: 0;
     display: flex;
     flex-direction: column;;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    line-height: 1.6;
 }
 
 .title {
     text-align: center;
     font-family: "Legend Boy", sans-serif;
-    color: var(--main-color);
+    color: var(--accent-color-one);
+    transition: color 1s;
 }
-main {
+.main {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -33,7 +38,8 @@ main {
 .canvas-container {
     position: relative;
 }
-canvas {
+
+.canvas {
     border: 1px solid black;
     position: absolute;
     top: 0;
@@ -42,14 +48,75 @@ canvas {
     right: 0;
 }
 
-#grid {
+.canvas--grid {
     z-index: -1;
 }
 
-#start-game {
+.button {
     border-radius: 9999999999px;
-    background: #00f;
-    color: white;
+    transition: color 1s;
     padding: 1.5em 3em;
+    color: var(--background-color);
     font-family: "Legend Boy", sans-serif;
+    border: none;
 }
+
+.button--start {
+    background: var(--accent-color-one);
+}
+
+.button--restart {
+    background: var(--accent-color-two);
+}
+
+
+.settings__widget {
+    z-index: 10;
+    position: fixed;
+    right: 1em;
+    top: 1em;
+    display: flex;
+    align-items: center;
+}
+
+.settings__widget > p {
+    color: #b3b3b3;
+}
+
+.settings__widget > svg {
+    transition: transform 2s;
+}
+
+.settings__widget > svg:hover,
+.settings__widget > svg:focus {
+    transform: rotate(360deg);
+}
+.settings__game-form {
+    min-height: 100vh;
+    color: var(--background-color);
+    background: var(--fore-ground-color);
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    transform: translateX(50%);
+    transition: all 1s;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.settings__game-form--active {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateX(0%);
+}
+
+/*
+@media(prefers-color-scheme: dark) {
+    body {
+        background-color: #222;
+        color: #eee;
+    }
+}*/

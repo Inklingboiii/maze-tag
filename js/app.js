@@ -7,16 +7,20 @@ import colorSchemesArray from "./colorschemes.js";
 
 //variables
 
-const gameForm = document.querySelector("#game-form");
+const gameForm = document.querySelector(".settings__game-form");
+const startButton = document.querySelector(".button--start");
+const restartButton = document.querySelector(".button--restart");
+
 export const canvasContainer = document.querySelector(".canvas-container");
-export const gameCanvas = document.querySelector("#grid");
-const restartButton = document.querySelector('#restart-button');
+export const gameCanvas = document.querySelector(".canvas--grid");
 export const gameCtx = gameCanvas.getContext("2d");
-export const coinCanvas = document.querySelector("#coins");
+
+export const coinCanvas = document.querySelector(".canvas--coins");
 export const coinCtx = coinCanvas.getContext("2d");
+
 export let numberOfRows, numberOfColumns;
-numberOfRows = numberOfColumns =  document.querySelector("#board-size").value;
-console.log(numberOfRows, numberOfColumns)
+numberOfRows = numberOfColumns = document.querySelector("#board-size").value;
+
 export let score = 0;
 export let shouldShowTrail = false;
 
@@ -45,8 +49,10 @@ canvasWidth = size;
 
 export let blockWidth = canvasWidth / numberOfColumns;
 export let blockHeight = canvasHeight / numberOfRows;
+
 export let gridArray = []; //0 represents walls, 1 ground, 2 player 4 for enemy and 5 for coin
 export let isGameover;
+
 //enemy speed slider
 let speedInput = document.querySelector("#enemy-speed");
 let speedOutput = document.querySelector("#enemy-speed-output");
@@ -57,6 +63,12 @@ speedInput.addEventListener("input", () => {
 export let enemySpeed;
 export let wallFrequency;
 
+//add sidebar functionality on widget click
+const gameFormWidget = document.querySelector('.settings__widget');
+gameFormWidget.addEventListener('click', () => {
+  gameForm.classList.toggle('settings__game-form--active');
+})
+
 //colors
 export let colors = colorSchemesArray[0]();
 
@@ -64,15 +76,15 @@ helper.createMapArray();
 
 helper.drawStartingScreen();
 
-gameForm.addEventListener("submit", (e) => {
+startButton.addEventListener("click", (e) => {
   e.preventDefault();
   startGame();
 });
 
 function startGame() {
   configVars();
-  gameForm.removeEventListener("submit", startGame);
-  restartButton.addEventListener('click', restart)
+  startButton.removeEventListener("click", startGame);
+  restartButton.addEventListener("click", restart);
   isGameover = false;
   gridArray = [];
   helper.createMapArray();
@@ -112,13 +124,13 @@ function configVars() {
     if (radio.checked) {
       colors = colorSchemesArray[radio.value]();
       //set css variables to color variables
-      let root = document.querySelector(':root')
-      root.style.setProperty('--main-color', colors.playerColor);
-
+      let root = document.querySelector(":root");
+      root.style.setProperty("--main-color", colors.playerColor);
+      root.style.setProperty("--accent-color", colors.enemyColor);
     }
   });
   numberOfRows = numberOfColumns = document.querySelector("#board-size").value;
-  console.log(numberOfRows, numberOfColumns)
+  console.log(numberOfRows, numberOfColumns);
   blockHeight = canvasHeight / numberOfRows;
   blockWidth = canvasWidth / numberOfColumns;
 
@@ -132,10 +144,9 @@ export function setScore(number) {
   score += number;
 }
 
-
 function restart() {
   isGameover = true;
   gameForm.addEventListener("submit", startGame);
-  restartButton.removeEventListener('click', restart);
+  restartButton.removeEventListener("click", restart);
   helper.drawStartingScreen();
 }

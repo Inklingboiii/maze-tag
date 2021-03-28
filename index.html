@@ -15,12 +15,37 @@
     <header>
         <h1 class="title">Maze Tag</h1>
     </header>
-    <main>
-        <article class="canvas-container">
-            <canvas id="grid">A Game</canvas>
-            <canvas id="coins">Coin Visualizer</canvas>
+    <main class="main">
+        <section class="canvas-container">
+            <canvas class=" canvas canvas--grid">A Game</canvas>
+            <canvas class="canvas canvas--coins">Coin Visualizer</canvas>
+        </section>
+        <section>
+            <button type="button" class="button button--start">Start Game</button>
+            <button type="button" class="button button--restart">Exit</button>
+        </section>
+    </main>
+    <aside class="settings">
+        <article class="settings__widget">
+            <p>Settings</p>
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g fill="#b3b3b3">
+                    <rect x="35" y="45" width="10" height="20" />
+                    <rect x="35" y="15" width="10" height="20" />
+                    <rect x="13" y="35" width="20" height="10" />
+                    <rect x="45" y="35" width="20" height="10" />
+                    <rect x="38" y="33.1421" width="20" height="10" transform="rotate(-45 38 33.1421)" />
+                    <rect x="47.0711" y="40" width="20" height="10" transform="rotate(45 47.0711 40)" />
+                    <rect x="32.1421" y="40.2132" width="20" height="10" transform="rotate(-135 32.1421 40.2132)" />
+                    <rect x="40.2132" y="45.0711" width="20" height="10" transform="rotate(135 40.2132 45.0711)" />
+                </g>
+                <g>
+                    <circle cx="40" cy="40" r="15" fill="#D4CECE" />
+                    <circle cx="40.5" cy="40.5" r="7" fill="#052DFD" fill-opacity="0.71" stroke="black" />
+                </g>
+                </svg>
         </article>
-        <form id="game-form">
+        <form class="settings__game-form">
             <section>
                 <label for="board-size">Board Size:</label>
                 <input type="range" min="5" max="250" value="25" step="5" id="board-size">
@@ -31,7 +56,7 @@
             </section>
             <section>
                 <label for="enemy-speed">Enemy Speed(The Lower The Number The Faster):</label>
-                <input type="range" min="50" max="500" step="50" id="enemy-speed" value="250">
+                <input type="range" min="50" max="400" step="25" id="enemy-speed" value="200">
                 <output for="enemy-speed" id="enemy-speed-output"></output>
             </section>
             <section>
@@ -50,9 +75,7 @@
                     <input type="radio" name="color-scheme" id="three" value="2">
                 </fieldset>
             </section>
-            <button type="submit" id="start-game">Start Game</button>
         </form>
-        <button type="button" id="restart-button">Exit</button>
-    </main>
+    </aside>
 </body>
 </html>
