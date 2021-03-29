@@ -169,4 +169,15 @@ export default class helper {
           gameCtx.fillText('MAZE', Math.round((canvasWidth/3) * 2), Math.round(canvasHeight/3) / 2);
           gameCtx.fillText('TAG', canvasWidth/3, canvasHeight/3 * 2.5);
       }
+      
+      static domData() {
+        return {
+          enemySpeed: document.querySelector("#enemy-speed").value,
+          boardSize:  document.querySelector("#board-size").value,
+          colorSchemeRadios: document.getElementsByName("color-scheme"),
+          shouldShowTrail: document.querySelector("#show-trail").checked,
+          wallFrequency: document.querySelector("#wall-frequency").value,
+          root: document.querySelector(":root")
+        }
+      }
 }

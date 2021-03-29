@@ -12,15 +12,15 @@
     <script src="js/app.js" type="module"></script>
 </head>
 <body>
-    <header>
-        <h1 class="title">Maze Tag</h1>
+    <header class="header">
+        <h1 class="header__title">Maze Tag</h1>
     </header>
     <main class="main">
         <section class="canvas-container">
             <canvas class=" canvas canvas--grid">A Game</canvas>
             <canvas class="canvas canvas--coins">Coin Visualizer</canvas>
         </section>
-        <section>
+        <section class="buttons-container">
             <button type="button" class="button button--start">Start Game</button>
             <button type="button" class="button button--restart">Exit</button>
         </section>
@@ -46,9 +46,14 @@
                 </svg>
         </article>
         <form class="settings__game-form">
+            <header>
+                <h2>Settings</h2>
+                <p>Your Settings are safed automatically</p>
+            </header>
             <section>
                 <label for="board-size">Board Size:</label>
                 <input type="range" min="5" max="250" value="25" step="5" id="board-size">
+                <output for="board-size" id="board-size-output"></output>
             </section>
             <section>
                 <label for="show-trail">Show Enemy Trail:</label>

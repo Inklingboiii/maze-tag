@@ -1,3 +1,4 @@
+/*variables*/
 :root {
     --fore-ground-color: #222;
     --background-color: #eee;
@@ -5,34 +6,56 @@
     --accent-color-two: red;
 }
 
+/*resets*/
+
 *,
 *::before,
 *::after {
     box-sizing: border-box
 }
 
+/*components/utility classes*/
+
+.button {
+    border-radius: 9999999999px;
+    transition: color 1s;
+    padding: 1.5em 3em;
+    color: #eee;
+    font-family: "Legend Boy", sans-serif;
+    border: none;
+}
+
+/*body*/
+
 body {
     overflow-x: hidden;
     margin: 0;
     display: flex;
-    flex-direction: column;;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    gap: 1em;
     min-height: 100vh;
     line-height: 1.6;
+    background: var(--background-color);
+    color: var(--fore-ground-color);
 }
 
-.title {
+/*header*/
+.header__title {
     text-align: center;
     font-family: "Legend Boy", sans-serif;
     color: var(--accent-color-one);
     transition: color 1s;
 }
+
+/*main game section*/
+
 .main {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+    gap: 1em;
 }
 
 .canvas-container {
@@ -52,13 +75,11 @@ body {
     z-index: -1;
 }
 
-.button {
-    border-radius: 9999999999px;
-    transition: color 1s;
-    padding: 1.5em 3em;
-    color: var(--background-color);
-    font-family: "Legend Boy", sans-serif;
-    border: none;
+.buttons-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 1em;
 }
 
 .button--start {
@@ -71,6 +92,7 @@ body {
 
 
 .settings__widget {
+    cursor: pointer;
     z-index: 10;
     position: fixed;
     right: 1em;
@@ -89,7 +111,7 @@ body {
 
 .settings__widget > svg:hover,
 .settings__widget > svg:focus {
-    transform: rotate(360deg);
+    transform: rotate(180deg);
 }
 .settings__game-form {
     min-height: 100vh;
@@ -107,16 +129,28 @@ body {
     justify-content: center;
 }
 
+/*slide in animation*/
 .settings__game-form--active {
     pointer-events: auto;
     opacity: 1;
     transform: translateX(0%);
 }
 
-/*
-@media(prefers-color-scheme: dark) {
-    body {
-        background-color: #222;
-        color: #eee;
+
+@keyframes slide-in {
+    from {
+        transform: translateX(50%);
     }
-}*/
+    to {
+        transform: translateX(0%);
+    }
+}
+
+
+
+@media(prefers-color-scheme: dark) {
+   :root {
+    --fore-ground-color: #eee;
+    --background-color: #222;
+   }
+}

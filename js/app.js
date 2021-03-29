@@ -1,5 +1,6 @@
 //imports
 import helper from "./helper.js";
+import handlePageElements from "./page.js";
 import createPlayer from "./player.js";
 import createEnemy from "./enemy.js";
 import spawnCoins from "./coinspawner.js";
@@ -7,11 +8,9 @@ import colorSchemesArray from "./colorschemes.js";
 
 //variables
 
-const gameForm = document.querySelector(".settings__game-form");
 const startButton = document.querySelector(".button--start");
 const restartButton = document.querySelector(".button--restart");
 
-export const canvasContainer = document.querySelector(".canvas-container");
 export const gameCanvas = document.querySelector(".canvas--grid");
 export const gameCtx = gameCanvas.getContext("2d");
 
@@ -24,28 +23,11 @@ numberOfRows = numberOfColumns = document.querySelector("#board-size").value;
 export let score = 0;
 export let shouldShowTrail = false;
 
-export let canvasHeight;
-export let canvasWidth;
+//handles page elements like sliders or side bars
+handlePageElements();
 
-//set canvas size
-
-let windowWidth = Math.round(window.innerWidth / 1.2);
-let windowHeight = Math.round(window.innerHeight / 1.2);
-let size;
-if (windowWidth <= windowHeight) {
-  size = windowWidth;
-} else {
-  size = windowHeight;
-}
-//set size of canvas and canvascontainer
-[gameCanvas, coinCanvas].forEach((canvas) => {
-  canvas.width = size;
-  canvas.height = size;
-});
-canvasContainer.style.height = size + "px";
-canvasContainer.style.width = size + "px";
-canvasHeight = size;
-canvasWidth = size;
+export let canvasHeight = gameCanvas.height;
+export let canvasWidth = gameCanvas.width;
 
 export let blockWidth = canvasWidth / numberOfColumns;
 export let blockHeight = canvasHeight / numberOfRows;
@@ -53,21 +35,8 @@ export let blockHeight = canvasHeight / numberOfRows;
 export let gridArray = []; //0 represents walls, 1 ground, 2 player 4 for enemy and 5 for coin
 export let isGameover;
 
-//enemy speed slider
-let speedInput = document.querySelector("#enemy-speed");
-let speedOutput = document.querySelector("#enemy-speed-output");
-speedOutput.textContent = speedInput.value;
-speedInput.addEventListener("input", () => {
-  speedOutput.textContent = speedInput.value;
-});
 export let enemySpeed;
 export let wallFrequency;
-
-//add sidebar functionality on widget click
-const gameFormWidget = document.querySelector('.settings__widget');
-gameFormWidget.addEventListener('click', () => {
-  gameForm.classList.toggle('settings__game-form--active');
-})
 
 //colors
 export let colors = colorSchemesArray[0]();
@@ -76,10 +45,7 @@ helper.createMapArray();
 
 helper.drawStartingScreen();
 
-startButton.addEventListener("click", (e) => {
-  e.preventDefault();
-  startGame();
-});
+startButton.addEventListener("click", startGame);
 
 function startGame() {
   configVars();
@@ -113,30 +79,28 @@ export function gameover() {
   }
   isGameover = true;
   alert(`Gameover nub, your score is ${score}`);
-  gameForm.addEventListener("submit", startGame);
+  startButton.addEventListener("click", startGame);
 }
 
 function configVars() {
+  let domData = helper.domData();
   score = 0;
   //color scheme
-  let radios = document.getElementsByName("color-scheme");
-  [...radios].map((radio) => {
+  Array.from(domData.colorSchemeRadios).map((radio) => {
     if (radio.checked) {
       colors = colorSchemesArray[radio.value]();
       //set css variables to color variables
-      let root = document.querySelector(":root");
-      root.style.setProperty("--main-color", colors.playerColor);
-      root.style.setProperty("--accent-color", colors.enemyColor);
+      domData.root.style.setProperty("--main-color", colors.playerColor);
+      domData.root.style.setProperty("--accent-color", colors.enemyColor);
     }
   });
-  numberOfRows = numberOfColumns = document.querySelector("#board-size").value;
-  console.log(numberOfRows, numberOfColumns);
+  numberOfRows = numberOfColumns = domData.boardSize;
   blockHeight = canvasHeight / numberOfRows;
   blockWidth = canvasWidth / numberOfColumns;
 
-  shouldShowTrail = document.querySelector("#show-trail").checked;
-  enemySpeed = speedInput.value;
-  wallFrequency = document.querySelector("#wall-frequency").value / 100;
+  shouldShowTrail = domData.shouldShowTrail;
+  enemySpeed = domData.enemySpeed;
+  wallFrequency = domData.wallFrequency / 100; //divide by 100 for percent
 }
 
 //this is needed so other modules can mutate score variable
@@ -146,7 +110,7 @@ export function setScore(number) {
 
 function restart() {
   isGameover = true;
-  gameForm.addEventListener("submit", startGame);
+  startButton.addEventListener("click", startGame);
   restartButton.removeEventListener("click", restart);
   helper.drawStartingScreen();
 }
