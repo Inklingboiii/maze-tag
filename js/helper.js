@@ -165,7 +165,7 @@ export default class helper {
           gameCtx.textBaseline = 'middle';
           gameCtx.textAlign = 'center';
           gameCtx.fillStyle = colors.coinColor;
-          gameCtx.font = 'calc(5vw + 1rem) "Legend Boy"';
+          gameCtx.font = 'calc(5vmin + 1rem) "Legend Boy"';
           gameCtx.fillText('MAZE', Math.round((canvasWidth/3) * 2), Math.round(canvasHeight/3) / 2);
           gameCtx.fillText('TAG', canvasWidth/3, canvasHeight/3 * 2.5, canvasWidth/3 * 2);
       }
