@@ -198,14 +198,17 @@ body {
 .guide__description {
     max-width: 60ch;
 }
-/*pc*/
 
-/*@media(in-width: 35em) {
-   
-}*/
-/*@media(prefers-color-scheme: dark) {
+@media(prefers-color-scheme: dark) {
    :root {
     --fore-ground-color: #eee;
     --background-color: #222;
    }
-}*/
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      transition-duration: 0s !important;
+      transition-delay: 0s !important;
+    }
+  }
