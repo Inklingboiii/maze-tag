@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="fonts/legendFont.css">
     <script src="js/app.js" type="module"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"> 
 </head>
 <body>
     <header class="header">
@@ -47,40 +49,57 @@
         </article>
         <form class="settings__game-form">
             <header>
-                <h2>Settings</h2>
-                <p>Your Settings are safed automatically</p>
+                <h2 class="settings__title">Settings</h2>
+                <p class="settings__description">Your Settings are safed automatically</p>
             </header>
             <section>
-                <label for="board-size">Board Size:</label>
-                <input type="range" min="5" max="250" value="25" step="5" id="board-size">
-                <output for="board-size" id="board-size-output"></output>
+                <label class="settings__label"for="board-size">Board Size</label>
+                <input class="settings__input" type="range" min="5" max="250" value="25" step="5" id="board-size">
+                <output class="settings__output" for="board-size" id="board-size-output"></output>
             </section>
             <section>
-                <label for="show-trail">Show Enemy Trail:</label>
-                <input type="checkbox" name="show-trail" id="show-trail">
+                <label class="settings__label settings__label--show-trail"for="show-trail">Show Enemy Trail</label>
+                <input class="settings__input settings__input--show-trail" type="checkbox" name="show-trail" id="show-trail">
             </section>
             <section>
-                <label for="enemy-speed">Enemy Speed(The Lower The Number The Faster):</label>
-                <input type="range" min="50" max="400" step="25" id="enemy-speed" value="200">
-                <output for="enemy-speed" id="enemy-speed-output"></output>
+                <label class="settings__label" for="enemy-speed">Enemy Speed(The Lower The Number The Faster)</label>
+                <input class="settings__input" type="range" min="50" max="400" step="25" id="enemy-speed" value="200">
+                <output class="settings__output" for="enemy-speed" id="enemy-speed-output"></output>
             </section>
             <section>
-                <label for="wall-frequency">Wall Frequency In Percent</label>
-                <input type="number" min="0" max="99" value="25" id="wall-frequency">
+                <label class="settings__label" for="wall-frequency">Wall Frequency In Percent</label>
+                <input class="settings__input" type="number" min="0" max="99" value="25" id="wall-frequency">
             </section>
             <section>
                 <fieldset>
-                    <legend>Color Scheme:</legend>
+                    <legend class="settings__colorschemes-legend">Color Scheme</legend>
                     <!--value starts at zero due to arrays being 0 indexed-->
-                    <label for="one">1</label>
-                    <input type="radio" name="color-scheme" id="one" value="0" checked>
-                    <label for="two">2</label>
-                    <input type="radio" name="color-scheme" id="two" value="1">
-                    <label for="three">3</label>
-                    <input type="radio" name="color-scheme" id="three" value="2">
+                    <label class="settings__label" for="one">1</label>
+                    <input class="settings__input" type="radio" name="color-scheme" id="one" value="0" checked>
+                    <label class="settings__label" for="two">2</label>
+                    <input class="settings__input" type="radio" name="color-scheme" id="two" value="1">
+                    <label class="settings__label" for="three">3</label>
+                    <input class="settings__input" type="radio" name="color-scheme" id="three" value="2">
                 </fieldset>
             </section>
         </form>
     </aside>
+    <article class="guide">
+        <header class="guide__header">
+            <h2 class="guide__title guide__title--h2">Guide</h2>
+        </header>
+        <section class="guide__how-to-play">
+            <h3 class="guide__title guide__title--h3">How To Play</h3>
+            <p class="guide__description">Use WASD to move and collect the golden coins to gain points while you escape from the red enemy,
+            but be careful! If the red enemy touches a coin it turns into an inpassable wall.
+            </p>
+        </section>
+        <section class="guide__settings-explanation">
+            <h3 class="guide__title guide__title--h3">Settings</h3>
+            <p class="guide__description">In the settings menu you can change the color scheme, the scale of the board and more.
+                Your changes get saved automatically.
+            </p>
+        </section>
+    </article>
 </body>
 </html>

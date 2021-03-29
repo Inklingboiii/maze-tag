@@ -38,6 +38,7 @@ body {
     line-height: 1.6;
     background: var(--background-color);
     color: var(--fore-ground-color);
+    font-family: 'Press Start 2P', cursive;
 }
 
 /*header*/
@@ -60,6 +61,7 @@ body {
 
 .canvas-container {
     position: relative;
+    box-shadow: 0px 0px 1em #000;
 }
 
 .canvas {
@@ -83,13 +85,16 @@ body {
 }
 
 .button--start {
+    transition: color 1s;
     background: var(--accent-color-one);
 }
 
 .button--restart {
+    transition: color 1s;
     background: var(--accent-color-two);
 }
 
+/*settings*/
 
 .settings__widget {
     cursor: pointer;
@@ -98,11 +103,12 @@ body {
     right: 1em;
     top: 1em;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .settings__widget > p {
     color: #b3b3b3;
+    font-size: calc(1vmin + 0.5rem);
 }
 
 .settings__widget > svg {
@@ -114,10 +120,11 @@ body {
     transform: rotate(180deg);
 }
 .settings__game-form {
+    padding: 1em;
     min-height: 100vh;
     color: var(--background-color);
     background: var(--fore-ground-color);
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     opacity: 0;
@@ -126,7 +133,7 @@ body {
     pointer-events: none;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 /*slide in animation*/
@@ -146,11 +153,59 @@ body {
     }
 }
 
+.settings__title {
+    text-align: center;
+}
 
+.settings__label, .settings__colorschemes-legend {
+    font-size: 0.75rem;
+}
 
-@media(prefers-color-scheme: dark) {
+.settings__input--show-trail {
+    transition: transform 1s;
+}
+
+.settings__input--show-trail:checked {
+    transform: scale(1.5);
+}
+
+/*guide*/
+
+.guide {
+    background: var(--fore-ground-color);
+    color: var(--background-color);
+    padding: 1em;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.guide__title {
+    transition: color 1s;
+}
+
+.guide__title--h2 {
+    color: var(--accent-color-one);
+}
+
+.guide__title--h3 {
+    color: var(--accent-color-two)
+}
+
+.guide__header {
+    flex-basis: 100%;
+}
+
+.guide__description {
+    max-width: 60ch;
+}
+/*pc*/
+
+/*@media(in-width: 35em) {
+   
+}*/
+/*@media(prefers-color-scheme: dark) {
    :root {
     --fore-ground-color: #eee;
     --background-color: #222;
    }
-}
+}*/

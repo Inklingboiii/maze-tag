@@ -90,8 +90,8 @@ function configVars() {
     if (radio.checked) {
       colors = colorSchemesArray[radio.value]();
       //set css variables to color variables
-      domData.root.style.setProperty("--main-color", colors.playerColor);
-      domData.root.style.setProperty("--accent-color", colors.enemyColor);
+      domData.root.style.setProperty("--accent-color-one", colors.playerColor);
+      domData.root.style.setProperty("--accent-color-two", colors.enemyColor);
     }
   });
   numberOfRows = numberOfColumns = domData.boardSize;
