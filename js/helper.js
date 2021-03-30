@@ -79,6 +79,7 @@ export default class helper {
         }
       }
 
+      //smoothing rules by https://www.youtube.com/watch?v=v7yyZZjF1z4&t
       static smoothMap() {
         for(let row = 0; row < numberOfRows; row++) {
           for(let col = 0; col < numberOfColumns; col++) {
@@ -220,7 +221,7 @@ export default class helper {
           shouldShowTrail: document.querySelector("#show-trail").checked,
           wallFrequency: document.querySelector("#wall-frequency").value,
           root: document.querySelector(":root"),
-          shouldSmoothenBoard: document.querySelector('.settings__input--smoothen-board').value
+          shouldSmoothenBoard: document.querySelector('.settings__input--smoothen-board').checked
         }
       }
 }
