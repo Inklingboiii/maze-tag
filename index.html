@@ -22,32 +22,35 @@
             <canvas class=" canvas canvas--grid">A Game</canvas>
             <canvas class="canvas canvas--coins">Coin Visualizer</canvas>
         </section>
-        <section class="buttons-container">
-            <button type="button" class="button button--start">Start Game</button>
-            <button type="button" class="button button--restart">Exit</button>
-        </section>
-        <section class="controls">
-            <button class="controls__left">
-                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12.1464 25.1464C11.9512 25.3417 11.9512 25.6583 12.1464 25.8536L15.3284 29.0355C15.5237 29.2308 15.8403 29.2308 16.0355 29.0355C16.2308 28.8403 16.2308 28.5237 16.0355 28.3284L13.2071 25.5L16.0355 22.6716C16.2308 22.4763 16.2308 22.1597 16.0355 21.9645C15.8403 21.7692 15.5237 21.7692 15.3284 21.9645L12.1464 25.1464ZM37.5 25L12.5 25V26L37.5 26V25Z" fill="black" />
-                </svg>
-            </button>
-            <button class="controls__down">
-                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M24.6464 38.3536C24.8417 38.5488 25.1583 38.5488 25.3536 38.3536L28.5355 35.1716C28.7308 34.9763 28.7308 34.6597 28.5355 34.4645C28.3403 34.2692 28.0237 34.2692 27.8284 34.4645L25 37.2929L22.1716 34.4645C21.9763 34.2692 21.6597 34.2692 21.4645 34.4645C21.2692 34.6597 21.2692 34.9763 21.4645 35.1716L24.6464 38.3536ZM24.5 13V38H25.5V13H24.5Z" fill="black" />
-                </svg>
-            </button>
-            <button class="controls__up">
-                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M25.3536 12.6464C25.1583 12.4512 24.8417 12.4512 24.6464 12.6464L21.4645 15.8284C21.2692 16.0237 21.2692 16.3403 21.4645 16.5355C21.6597 16.7308 21.9763 16.7308 22.1716 16.5355L25 13.7071L27.8284 16.5355C28.0237 16.7308 28.3403 16.7308 28.5355 16.5355C28.7308 16.3403 28.7308 16.0237 28.5355 15.8284L25.3536 12.6464ZM25.5 38L25.5 13H24.5L24.5 38H25.5Z" fill="black" />
-                </svg>
-            </button>
-            <button class="controls__right">
+        <div class="main__left-side">
+            <section class="buttons-container">
+                <button type="button" class="button button--start">Start Game</button>
+                <button type="button" class="button button--restart">Exit</button>
+            </section>
+            <section class="controls">
+                <button class="controls__button controls__button--left">
                     <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M37.8536 25.8536C38.0488 25.6583 38.0488 25.3417 37.8536 25.1464L34.6716 21.9645C34.4763 21.7692 34.1597 21.7692 33.9645 21.9645C33.7692 22.1597 33.7692 22.4763 33.9645 22.6716L36.7929 25.5L33.9645 28.3284C33.7692 28.5237 33.7692 28.8403 33.9645 29.0355C34.1597 29.2308 34.4763 29.2308 34.6716 29.0355L37.8536 25.8536ZM12.5 26H37.5V25H12.5V26Z" fill="black" />
+                        <path d="M12.1464 25.1464C11.9512 25.3417 11.9512 25.6583 12.1464 25.8536L15.3284 29.0355C15.5237 29.2308 15.8403 29.2308 16.0355 29.0355C16.2308 28.8403 16.2308 28.5237 16.0355 28.3284L13.2071 25.5L16.0355 22.6716C16.2308 22.4763 16.2308 22.1597 16.0355 21.9645C15.8403 21.7692 15.5237 21.7692 15.3284 21.9645L12.1464 25.1464ZM37.5 25L12.5 25V26L37.5 26V25Z" />
                     </svg>
-            </button>
-        </section>
+                </button>
+                <button class="controls__button controls__button--down">
+                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M24.6464 38.3536C24.8417 38.5488 25.1583 38.5488 25.3536 38.3536L28.5355 35.1716C28.7308 34.9763 28.7308 34.6597 28.5355 34.4645C28.3403 34.2692 28.0237 34.2692 27.8284 34.4645L25 37.2929L22.1716 34.4645C21.9763 34.2692 21.6597 34.2692 21.4645 34.4645C21.2692 34.6597 21.2692 34.9763 21.4645 35.1716L24.6464 38.3536ZM24.5 13V38H25.5V13H24.5Z" />
+                    </svg>
+                </button>
+                <button class="controls__button controls__button--up">
+                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M25.3536 12.6464C25.1583 12.4512 24.8417 12.4512 24.6464 12.6464L21.4645 15.8284C21.2692 16.0237 21.2692 16.3403 21.4645 16.5355C21.6597 16.7308 21.9763 16.7308 22.1716 16.5355L25 13.7071L27.8284 16.5355C28.0237 16.7308 28.3403 16.7308 28.5355 16.5355C28.7308 16.3403 28.7308 16.0237 28.5355 15.8284L25.3536 12.6464ZM25.5 38L25.5 13H24.5L24.5 38H25.5Z" />
+                    </svg>
+                </button>
+                <button class="controls__button controls__button--right">
+                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M37.8536 25.8536C38.0488 25.6583 38.0488 25.3417 37.8536 25.1464L34.6716 21.9645C34.4763 21.7692 34.1597 21.7692 33.9645 21.9645C33.7692 22.1597 33.7692 22.4763 33.9645 22.6716L36.7929 25.5L33.9645 28.3284C33.7692 28.5237 33.7692 28.8403 33.9645 29.0355C34.1597 29.2308 34.4763 29.2308 34.6716 29.0355L37.8536 25.8536ZM12.5 26H37.5V25H12.5V26Z" />
+                        </svg>
+                </button>
+            </section>
+        </div>
+        
     </main>
     <aside class="settings">
         <article class="settings__widget">

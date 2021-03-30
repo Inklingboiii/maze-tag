@@ -77,6 +77,15 @@ body {
     z-index: -1;
 }
 
+.main__left-side {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1em;
+}
+
 .buttons-container {
     display: flex;
     align-items: center;
@@ -94,6 +103,27 @@ body {
     background: var(--accent-color-two);
 }
 
+/*control button*/
+
+.controls {
+    align-self: stretch;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.controls__button {
+    min-width: 5em;
+    min-height: 5em;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--fore-ground-color);
+}
+
+.controls__button > svg {
+    fill: var(--accent-color-one);
+}
 /*settings*/
 
 .settings__widget {

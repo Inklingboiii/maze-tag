@@ -25,10 +25,10 @@ export const left = ["KeyA", "ArrowLeft"];
 export const right = ["KeyD", "ArrowRight"];
 
 //buttons
-export const leftButton = document.querySelector(".controls__left");
-export const downButton = document.querySelector(".controls__down");
-export const upButton = document.querySelector(".controls__up");
-export const rightButton = document.querySelector(".controls__right");
+export const leftButton = document.querySelector(".controls__button--left");
+export const downButton = document.querySelector(".controls__button--down");
+export const upButton = document.querySelector(".controls__button--up");
+export const rightButton = document.querySelector(".controls__button--right");
 
 let isPressed = {
   up: false,
