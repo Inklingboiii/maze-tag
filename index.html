@@ -51,8 +51,8 @@
     </main>
     <aside class="settings">
         <article class="settings__widget">
-            <p>Settings</p>
-            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <p id="settings-widget-label">Settings</p>
+            <svg aria-labelledby="settings-widget-label" width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g fill="#b3b3b3">
                     <rect x="35" y="45" width="10" height="20" />
                     <rect x="35" y="15" width="10" height="20" />
@@ -116,13 +116,14 @@
         </header>
         <section class="guide__how-to-play">
             <h3 class="guide__title guide__title--h3">How To Play</h3>
-            <p class="guide__description">Use WASD to move and collect the golden coins to gain points while you escape from the red enemy,
-            but be careful! If the red enemy touches a coin it turns into an inpassable wall.
+            <p class="guide__description">Use WASD or the arrow keys to move and collect the golden coins to gain points while you escape from the red enemy,
+            but be careful! If the red enemy touches a coin it turns into an inpassable wall.<br>
+            Note: if you get softlocked or any other problems than restart the game by pressing exit and start game or reload the page.
             </p>
         </section>
         <section class="guide__settings-explanation">
             <h3 class="guide__title guide__title--h3">Settings</h3>
-            <p class="guide__description">In the settings menu you can change the color scheme, the scale of the board and more.
+            <p class="guide__description">In the settings menu which you can open and close by pressing on the settings icon on the top right you can change the color scheme, the scale of the board and more.
                 Your changes get saved automatically.
             </p>
         </section>
