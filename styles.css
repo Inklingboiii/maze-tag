@@ -111,18 +111,22 @@ body {
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
+    gap: 1em;
 }
 .controls__button {
     min-width: 5em;
     min-height: 5em;
+    width: 10vw;
+    height: 10vw;
     border-radius: 50%;
     display: grid;
     place-items: center;
     background: var(--fore-ground-color);
+    box-shadow: 0px 0px 1em #000;
 }
 
 .controls__button > svg {
-    fill: var(--accent-color-one);
+    fill: var(--background-color);
 }
 /*settings*/
 
