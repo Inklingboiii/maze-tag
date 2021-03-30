@@ -124,6 +124,7 @@ body {
     min-height: 100vh;
     color: var(--background-color);
     background: var(--fore-ground-color);
+    filter: brightness(90%);
     position: fixed;
     top: 0;
     right: 0;
