@@ -19,10 +19,10 @@ import helper from './helper.js';
 
 //player input directions
 
-export const up = "KeyW" || "ArrowUp";
-export const down = "KeyS" || "ArrowDown";
-export const left = "KeyA" || "ArrowLeft";
-export const right = "KeyD" || "ArrowRight";
+export const up = ["KeyW", "ArrowUp"];
+export const down = ["KeyS", "ArrowDown"];
+export const left = ["KeyA", "ArrowLeft"];
+export const right = ["KeyD", "ArrowRight"];
 
 let isPressed = {
   up: false,
@@ -46,8 +46,10 @@ export default function createPlayer() {
     color: colors.playerColor,
     type: 2,
   }); //register it as ground at first cus player duplicates
-  window.addEventListener("keydown", (key) => {
-    if ((key.code === up || down || left || right) && !isGameover) {
+  document.addEventListener("keydown", (key) => {
+    console.log(key.code)
+    if ((key.code === up[0] || up[1] || down[0] || down[1] || left[0] || left[1] || right[0] || right[1]) && !isGameover) {
+      key.preventDefault();
       movePlayer(key);
     }
   });
@@ -60,17 +62,17 @@ export default function createPlayer() {
 
     switch (key.code) {
       //check collissions and that the buttons arent being held
-      case up:
-        configurePosition([-1, 0], "up");
+      case up[0]:
+        case up[1]:  configurePosition([-1, 0], "up");
+      break;
+      case down[0]:
+        case down[1]: configurePosition([1, 0], "down");
         break;
-      case down:
-        configurePosition([1, 0], "down");
+      case left[0]:
+        case left[1]: configurePosition([0, -1], "left");
         break;
-      case left:
-        configurePosition([0, -1], "left");
-        break;
-      case right:
-        configurePosition([0, 1], "right");
+      case right[0]:
+        case right[1]: configurePosition([0, 1], "right");
         break;
     }
     //redraw player after new position
@@ -97,17 +99,17 @@ export default function createPlayer() {
 
   window.addEventListener("keyup", (key) => {
     switch (key.code) {
-      case up:
-        isPressed.up = false;
+        case up[0]:
+          case up[1]: isPressed.up = false;
         break;
-      case down:
-        isPressed.down = false;
-        break;
-      case left:
-        isPressed.left = false;
-        break;
-      case right:
-        isPressed.right = false;
+      case down[0]:
+        case down[1]: isPressed.down = false;
+      break;
+      case left[0]:
+        case left[1]: isPressed.left = false;
+      break;
+      case right[0]:
+        case right[1]: isPressed.right = false;
     }
   });
 
