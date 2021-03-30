@@ -79,6 +79,48 @@ export default class helper {
         }
       }
 
+      static smoothMap() {
+        for(let row = 0; row < numberOfRows; row++) {
+          for(let col = 0; col < numberOfColumns; col++) {
+            let neighborWallTiles = this.surroundingWallCount(row, col);
+
+            if(neighborWallTiles > 3) {
+              this.drawRect({
+                row: row,
+                col: col,
+                color: colors.wallColor,
+                type: 0
+              }); 
+            } else {
+              this.drawRect({
+                row: row,
+                col: col,
+                color: colors.fieldColor,
+                type: 1
+              }); 
+            }
+          }
+        }
+      }
+
+      static surroundingWallCount(row, col) {
+        let wallCount = 0;
+        for(let neighborX = row - 1; neighborX <= row + 1; neighborX++) { //loop through neighbors in a 3*3 grid
+          for(let neighborY = col - 1; neighborY <= col + 1; neighborY++) {
+            if(neighborX >= 0 && neighborX < numberOfColumns && neighborY >= 0 && neighborY < numberOfRows) { ///collision detection
+              if(neighborX !== col || neighborY !== row) {
+                if(gridArray[neighborY][neighborX].type === 0) {
+                  wallCount++;
+                }
+              }
+            } else {
+              wallCount++ //so higher chance of walls at edge of canvas
+            }
+          }
+        }
+        return wallCount
+      }
+
       static getRandomPosition() {
         let positionFound = false;
         while (!positionFound) {
@@ -177,7 +219,8 @@ export default class helper {
           colorSchemeRadios: document.getElementsByName("color-scheme"),
           shouldShowTrail: document.querySelector("#show-trail").checked,
           wallFrequency: document.querySelector("#wall-frequency").value,
-          root: document.querySelector(":root")
+          root: document.querySelector(":root"),
+          shouldSmoothenBoard: document.querySelector('.settings__input--smoothen-board').value
         }
       }
 }

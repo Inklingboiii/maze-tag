@@ -22,6 +22,7 @@ numberOfRows = numberOfColumns = document.querySelector("#board-size").value;
 
 export let score = 0;
 export let shouldShowTrail = false;
+let shouldSmoothenBoard = false;
 
 //handles page elements like sliders or side bars
 handlePageElements();
@@ -66,6 +67,12 @@ function startGame() {
     }
     return data;
   });
+
+  //smoothen map
+  if(shouldSmoothenBoard) {
+    helper.smoothMap();
+  }
+
   coinCtx.clearRect(0, 0, canvasWidth, canvasHeight);
   createPlayer();
   createEnemy();
@@ -101,6 +108,7 @@ function configVars() {
   shouldShowTrail = domData.shouldShowTrail;
   enemySpeed = domData.enemySpeed;
   wallFrequency = domData.wallFrequency / 100; //divide by 100 for percent
+  shouldSmoothenBoard = domData.shouldSmoothenBoard;
 }
 
 //this is needed so other modules can mutate score variable
