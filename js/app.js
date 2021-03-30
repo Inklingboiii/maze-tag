@@ -20,6 +20,7 @@ export const coinCtx = coinCanvas.getContext("2d");
 export let numberOfRows, numberOfColumns;
 numberOfRows = numberOfColumns = document.querySelector("#board-size").value;
 
+export let numberOfGames = 0;
 export let score = 0;
 export let shouldShowTrail = false;
 let shouldSmoothenBoard = false;
@@ -91,6 +92,7 @@ export function gameover() {
 
 function configVars() {
   let domData = helper.domData();
+  numberOfGames++;
   score = 0;
   //color scheme
   Array.from(domData.colorSchemeRadios).map((radio) => {

@@ -9,13 +9,13 @@ import {
   gameover,
   isGameover,
   colors,
-  score,
+ numberOfGames,
   setScore,
   canvasWidth,
-  canvasHeight
+  canvasHeight,
 } from "./app.js";
 
-import helper from './helper.js';
+import helper from "./helper.js";
 
 //player input directions
 
@@ -23,6 +23,12 @@ export const up = ["KeyW", "ArrowUp"];
 export const down = ["KeyS", "ArrowDown"];
 export const left = ["KeyA", "ArrowLeft"];
 export const right = ["KeyD", "ArrowRight"];
+
+//buttons
+export const leftButton = document.querySelector(".controls__left");
+export const downButton = document.querySelector(".controls__down");
+export const upButton = document.querySelector(".controls__up");
+export const rightButton = document.querySelector(".controls__right");
 
 let isPressed = {
   up: false,
@@ -46,35 +52,75 @@ export default function createPlayer() {
     color: colors.playerColor,
     type: 2,
   }); //register it as ground at first cus player duplicates
+
+  if(numberOfGames === 1) {
+    [leftButton, downButton, upButton, rightButton].map((button) => {
+      button.addEventListener("click", () => {
+        if (isGameover) {
+          return;
+        }
+        movePlayer(button, false);
+      });
+      });
+  }
+
+  //keys
   document.addEventListener("keydown", (key) => {
-    console.log(key.code)
-    if ((key.code === up[0] || up[1] || down[0] || down[1] || left[0] || left[1] || right[0] || right[1]) && !isGameover) {
+    if (
+      (key.code === up[0] ||
+        up[1] ||
+        down[0] ||
+        down[1] ||
+        left[0] ||
+        left[1] ||
+        right[0] ||
+        right[1]) &&
+      !isGameover
+    ) {
       key.preventDefault();
-      movePlayer(key);
+      movePlayer(key, true);
     }
   });
 
-  function movePlayer(key) {
+  function movePlayer(key, isKey) {
     //removes bug where player can warp through enemy
     if (gridArray[playerRow][playerColumn].type === 3) {
       return gameover();
     }
 
-    switch (key.code) {
-      //check collissions and that the buttons arent being held
-      case up[0]:
-        case up[1]:  configurePosition([-1, 0], "up");
-      break;
-      case down[0]:
-        case down[1]: configurePosition([1, 0], "down");
-        break;
-      case left[0]:
-        case left[1]: configurePosition([0, -1], "left");
-        break;
-      case right[0]:
-        case right[1]: configurePosition([0, 1], "right");
-        break;
+    if(isKey) {
+      switch (key.code) {
+        //check collissions and that the buttons arent being held
+        case up[0]:
+        case up[1]:
+          configurePosition([-1, 0], "up", true);
+          break;
+        case down[0]:
+        case down[1]:
+          configurePosition([1, 0], "down", true);
+          break;
+        case left[0]:
+        case left[1]:
+          configurePosition([0, -1], "left", true);
+          break;
+        case right[0]:
+        case right[1]:
+          configurePosition([0, 1], "right", true);
+          break;
+      }
+    } else {
+      switch (key) {
+        case leftButton:  configurePosition([0, -1], "left", false);
+          break;
+        case downButton:  configurePosition([1, 0], "down", false);
+          break;
+        case upButton: configurePosition([-1, 0], "up", false);
+          break;
+        case rightButton:  configurePosition([0, 1], "right", false);
+          break;
+      }
     }
+    
     //redraw player after new position
     helper.drawRect({
       row: playerRow,
@@ -99,21 +145,25 @@ export default function createPlayer() {
 
   window.addEventListener("keyup", (key) => {
     switch (key.code) {
-        case up[0]:
-          case up[1]: isPressed.up = false;
+      case up[0]:
+      case up[1]:
+        isPressed.up = false;
         break;
       case down[0]:
-        case down[1]: isPressed.down = false;
-      break;
+      case down[1]:
+        isPressed.down = false;
+        break;
       case left[0]:
-        case left[1]: isPressed.left = false;
-      break;
+      case left[1]:
+        isPressed.left = false;
+        break;
       case right[0]:
-        case right[1]: isPressed.right = false;
+      case right[1]:
+        isPressed.right = false;
     }
   });
 
-  function configurePosition([row, col], button) {
+  function configurePosition([row, col], button, isKey) {
     //collision checking
     if (
       playerRow + row >= 0 &&
@@ -130,11 +180,18 @@ export default function createPlayer() {
         lastPlayerColumn = playerColumn;
         playerRow += row;
         playerColumn += col;
-        isPressed[button] = true;
+        if(isKey) {
+          isPressed[button] = true;
+        }
         if (block.hasCoin === true) {
           block.hasCoin = false;
           //erase coin
-          coinCtx.clearRect(playerColumn * blockWidth, playerRow * blockWidth, blockWidth, blockHeight);
+          coinCtx.clearRect(
+            playerColumn * blockWidth,
+            playerRow * blockWidth,
+            blockWidth,
+            blockHeight
+          );
           setScore(10);
           console.log("got coin");
         }
